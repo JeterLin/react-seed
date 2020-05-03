@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config ./buildConfig/webpack.dev.config.js"
+    "dev": "webpack-dev-server --config ./buildConfig/webpack.dev.config.js",
+    "build": "webpack --config ./buildConfig/webpack.prod.config.js"
   },
   "author": "JeterLin <jeterlin2012@gmail.com>",
   "license": "ISC",
@@ -18,8 +19,6 @@
     "babel-loader": "8.1.0",
     "cache-loader": "^4.1.0",
     "css-loader": "3.4.2",
-    "dotenv": "8.2.0",
-    "dotenv-expand": "5.1.0",
     "eslint": "6.6.0",
     "eslint-loader": "3.0.3",
     "eslint-plugin-react": "7.19.0",
