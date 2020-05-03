@@ -44,6 +44,7 @@ module.exports = smp.wrap({
       {
         test: /\.(jsx?)|(css)$/,
         loader: "cache-loader",
+        //  每次启动webpack进入dev模式的构建，都清空上一次缓存的编译结果
         options: { cacheIdentifier: cacheId },
       },
       { test: /\.js|jsx$/, loader: "babel-loader" },
@@ -63,6 +64,7 @@ module.exports = smp.wrap({
   devServer: {
     port: 8081,
     contentBase: path.join(rootPath, "/src"),
+    historyApiFallback: true,
     hot: true,
     inline: true,
     open: true,
