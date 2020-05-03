@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 var TerserPlugin = require("terser-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const {alias : baseAliasConfig} = require('./base.config');
 
 const smp = new SpeedMeasurePlugin();
 
@@ -19,7 +20,7 @@ module.exports = smp.wrap({
   },
   resolve: {
     alias: {
-      "react-dom": "@hot-loader/react-dom",
+      ...baseAliasConfig
     },
   },
   optimization: {

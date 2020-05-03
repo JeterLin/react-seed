@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 const rootPath = require("./rootPath");
+const {alias : baseAliasConfig} = require('./base.config');
 
 const cacheId = "0.0.1-" + String(Math.random() * 1e6).slice(0, 6);
 module.exports = smp.wrap({
@@ -19,7 +20,7 @@ module.exports = smp.wrap({
   },
   resolve: {
     alias: {
-      "react-dom": "@hot-loader/react-dom",
+      ...baseAliasConfig
     },
   },
   // use for load on demand
