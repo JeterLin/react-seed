@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --config ./buildConfig/webpack.dev.config.js",
     "build": "webpack --config ./buildConfig/webpack.prod.config.js"
   },
-  "author": "JeterLin <jeterlin2012@gmail.com>",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -23,6 +23,7 @@
     "eslint-loader": "3.0.3",
     "eslint-plugin-react": "7.19.0",
     "html-webpack-plugin": "4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "react-hot-loader": "^4.12.20",
     "speed-measure-webpack-plugin": "1.3.3",
     "style-loader": "0.23.1",

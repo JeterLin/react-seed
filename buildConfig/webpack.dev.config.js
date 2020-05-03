@@ -22,20 +22,22 @@ module.exports = smp.wrap({
       "react-dom": "@hot-loader/react-dom",
     },
   },
-  optimization: {
-    splitChunks: {
-      name: true,
-      cacheGroups: {
-        commons: {
-          test: /\.jsx?$/,
-          name: "vendors",
-          chunks: "initial",
-          minChunks: 1,
-          reuseExistingChunk: true,
-        },
-      },
-    },
-  },
+  // use for load on demand
+  // optimization: {
+  //   splitChunks: {
+  //     name: true,
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /\.jsx?$/,
+  //         name: "vendors",
+  //         chunks: "all",
+  //         minChunks: 1,
+  //         minSize: 30000,
+  //         reuseExistingChunk: true,
+  //       },
+  //     },
+  //   },
+  // },
   module: {
     rules: [
       {
