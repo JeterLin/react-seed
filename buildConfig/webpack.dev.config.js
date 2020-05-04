@@ -4,14 +4,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 const rootPath = require("./rootPath");
-const {alias : baseAliasConfig, loaders: baseLoadersConfig} = require('./base.config');
+const {
+  alias: baseAliasConfig,
+  loaders: baseLoadersConfig,
+  entry: entryConfig
+} = require("./base.config");
 
 const cacheId = "0.0.1-" + String(Math.random() * 1e6).slice(0, 6);
 module.exports = smp.wrap({
   mode: "development",
-  entry: {
-    app: "./src/index.js",
-  },
+  entry: entryConfig,
   output: {
     path: path.join(rootPath, "/dist"),
     filename: "[name].bundle.js",
@@ -20,7 +22,7 @@ module.exports = smp.wrap({
   },
   resolve: {
     alias: {
-      ...baseAliasConfig
+      ...baseAliasConfig,
     },
   },
   // use for load on demand
@@ -50,12 +52,9 @@ module.exports = smp.wrap({
       { test: /\.js|jsx$/, loader: "babel-loader" },
       {
         test: /\.css$/,
-        use: [
-          "style-loader",
-          baseLoadersConfig.cssLoader
-        ],
+        use: ["style-loader", baseLoadersConfig.cssLoader],
       },
-      baseLoadersConfig.fileLoader
+      baseLoadersConfig.fileLoader,
     ],
   },
   devtool: "source-map",

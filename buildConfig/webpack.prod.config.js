@@ -8,15 +8,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {
   alias: baseAliasConfig,
   loaders: baseLoadersConfig,
+  entry: entryConfig,
 } = require("./base.config");
 
 const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
   mode: "production",
-  entry: {
-    app: "./src/index.js",
-  },
+  entry: entryConfig,
   output: {
     path: path.join(rootPath, "/dist"),
     filename: "[name]-[contenthash:6].js",

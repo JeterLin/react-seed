@@ -15,8 +15,15 @@ module.exports = {
       options: { modules: true },
     },
     fileLoader: {
-        test: /\.(png|svg|jpg|gif)$/,
-        loader: 'file-loader'
+      test: /\.(png|svg|jpg|gif)$/,
+      loader: "file-loader",
     },
+  },
+  entry: {
+    app: [
+        // polyfill Promise is not iterable on ie11
+        "core-js/modules/es6.array.iterator", 
+        "./src/index.js"
+      ],
   },
 };

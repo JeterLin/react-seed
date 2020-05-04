@@ -13,20 +13,18 @@ function LoadingThings(props) {
 // load the component after 2s
 const lazyComponent = (p) => {
   if (p && typeof p.then === "function") {
-    return p
-      .then(({ default: c }) => {
+    return p.then(({ default: c }) => {
         return new Promise((r, rj) => {
           setTimeout(() => {
             r({ default: c });
           }, 2e3);
         });
-      })
-      .catch((err) => "error with loading component");
+      }).catch((err) => "error with loading component");
   }
   throw "argument type with lazyComponent must be Promise";
 };
 const AsyncHome = lazy(() => lazyComponent(import("./Home")));
-const AsyncAbout = lazy(() => lazyComponent(import("./About")));
+const AsyncAbout = lazy(() => import("./About"));
 
 export function DemoRouter() {
   return (
@@ -38,7 +36,7 @@ export function DemoRouter() {
           <Link to="/about">About</Link>
         </nav>
       </header>
-      <main>
+      <div>
         <Switch>
           <Route path="/home">
             <Suspense
@@ -55,7 +53,7 @@ export function DemoRouter() {
             </Suspense>
           </Route>
         </Switch>
-      </main>
+      </div>
     </div>
   );
 }
