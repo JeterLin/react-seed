@@ -13,13 +13,15 @@ function LoadingThings(props) {
 // load the component after 2s
 const lazyComponent = (p) => {
   if (p && typeof p.then === "function") {
-    return p.then(({ default: c }) => {
+    return p
+      .then(({ default: c }) => {
         return new Promise((r, rj) => {
           setTimeout(() => {
             r({ default: c });
           }, 2e3);
         });
-      }).catch((err) => "error with loading component");
+      })
+      .catch((err) => "error with loading component");
   }
   throw "argument type with lazyComponent must be Promise";
 };
