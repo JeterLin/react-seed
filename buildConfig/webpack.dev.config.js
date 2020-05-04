@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 const rootPath = require("./rootPath");
-const {alias : baseAliasConfig} = require('./base.config');
+const {alias : baseAliasConfig, loaders: baseLoadersConfig} = require('./base.config');
 
 const cacheId = "0.0.1-" + String(Math.random() * 1e6).slice(0, 6);
 module.exports = smp.wrap({
@@ -52,12 +52,10 @@ module.exports = smp.wrap({
         test: /\.css$/,
         use: [
           "style-loader",
-          {
-            loader: "css-loader",
-            options: { modules: true },
-          },
+          baseLoadersConfig.cssLoader
         ],
       },
+      baseLoadersConfig.fileLoader
     ],
   },
   devtool: "source-map",

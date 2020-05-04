@@ -7,5 +7,16 @@ module.exports = {
     "@router": path.join(rootPath, "/src/view/router"),
     "@store": path.join(rootPath, "/src/store"),
     "@service": path.join(rootPath, "/src/service"),
+    "@assets": path.join(rootPath, "/src/assets"),
+  },
+  loaders: {
+    cssLoader: {
+      loader: "css-loader",
+      options: { modules: true },
+    },
+    fileLoader: {
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: 'file-loader'
+    },
   },
 };

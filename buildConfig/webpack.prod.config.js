@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 var TerserPlugin = require("terser-webpack-plugin");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const {alias : baseAliasConfig} = require('./base.config');
+const {
+  alias: baseAliasConfig,
+  loaders: baseLoadersConfig,
+} = require("./base.config");
 
 const smp = new SpeedMeasurePlugin();
 
@@ -17,10 +20,11 @@ module.exports = smp.wrap({
   output: {
     path: path.join(rootPath, "/dist"),
     filename: "[name]-[contenthash:6].js",
+    chunkFilename: "[name]-[contenthash:6].bundle.js",
   },
   resolve: {
     alias: {
-      ...baseAliasConfig
+      ...baseAliasConfig,
     },
   },
   optimization: {
@@ -38,14 +42,9 @@ module.exports = smp.wrap({
       { test: /\.js|jsx$/, loader: "babel-loader" },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: { modules: true },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, baseLoadersConfig.cssLoader],
       },
+      baseLoadersConfig.fileLoader,
     ],
   },
   plugins: [
