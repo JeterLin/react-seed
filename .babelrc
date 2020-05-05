@@ -5,10 +5,17 @@
       {
         "useBuiltIns": "usage",
         "targets": "> 0.25%, not dead",
-        "corejs": "2"
+        "corejs": 2
       }
     ],
     "@babel/preset-react"
   ],
-  "plugins": ["react-hot-loader/babel", "lodash"]
+  "plugins": [
+    "react-hot-loader/babel",
+    "lodash",
+    [
+      "import",
+      { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }
+    ]
+  ]
 }
