@@ -34,13 +34,13 @@ export function TestTable() {
       name: "Tom",
       age: 28,
       gender: "male",
-      description: "He loves Jerry and he can do anything just for Jerry",
+      description: "He is a programmer",
     },
     {
       name: "Jerry",
       age: 28,
       gender: "female",
-      description: "She loves Tom and she always does cooking for him",
+      description: "She is a dancer",
     },
   ];
   return <Table columns={columns} dataSource={tableData} rowKey="name" />;

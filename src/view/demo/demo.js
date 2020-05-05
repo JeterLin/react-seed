@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route, Link } from "@router";
 import reactDemoImg from "@assets/react-demo.jpg";
+import TestTsx, {MyTsx} from "./TestTsx.tsx"
 
 import ss from "./demo.css";
 export default function Demo() {
@@ -57,6 +58,8 @@ export function DemoRouter() {
           </Route>
         </Switch>
       </div>
+      <TestTsx title="amazing !!!"/>
+      <MyTsx name="Sherry" age="33"/>
     </div>
   );
 }
