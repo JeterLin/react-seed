@@ -1,4 +1,10 @@
-import React from 'react';
+import React from "react";
+import { TestTable } from "./TestTable";
 export default function About() {
-  return <h3>About</h3>;
+  return (
+    <>
+      About
+      <TestTable />
+    </>
+  );
 }

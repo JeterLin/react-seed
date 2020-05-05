@@ -28,6 +28,7 @@ const lazyComponent = (p) => {
 const AsyncHome = lazy(() => lazyComponent(import("./Home")));
 const AsyncAbout = lazy(() => import("./About"));
 
+
 export function DemoRouter() {
   return (
     <div className={ss.banner}>
@@ -38,7 +39,7 @@ export function DemoRouter() {
           <Link to="/about">About</Link>
         </nav>
       </header>
-      <div>
+      <div style={{width: '800px'}}>
         <Switch>
           <Route path="/home">
             <Suspense
