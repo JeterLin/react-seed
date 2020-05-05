@@ -9,6 +9,7 @@ const {
   alias: baseAliasConfig,
   loaders: baseLoadersConfig,
   entry: entryConfig,
+  extensions: extensionsConfig,
 } = require("./base.config");
 
 const smp = new SpeedMeasurePlugin();
@@ -25,6 +26,7 @@ module.exports = smp.wrap({
     alias: {
       ...baseAliasConfig,
     },
+    extensions: extensionsConfig,
   },
   optimization: {
     minimize: true,
@@ -39,7 +41,7 @@ module.exports = smp.wrap({
       name: true,
       cacheGroups: {
         commons: {
-          test: /\.jsx?$/,
+          test: /\.(tsx?|jsx?)$/,
           name: "vendors",
           chunks: "all",
           minChunks: 2,
@@ -51,7 +53,7 @@ module.exports = smp.wrap({
   },
   module: {
     rules: [
-      { test: /\.js|jsx$/, loader: "babel-loader", exclude: /node_modules/ },
+      { test: /\.(ts|js)x?$/, loader: "babel-loader", exclude: /node_modules/ },
       {
         test: /\.css$/,
         exclude: /node_modules/,

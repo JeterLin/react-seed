@@ -8,6 +8,7 @@ const {
   alias: baseAliasConfig,
   loaders: baseLoadersConfig,
   entry: entryConfig,
+  extensions: extensionsConfig,
 } = require("./base.config");
 
 const cacheId = "0.0.1-" + String(Math.random() * 1e6).slice(0, 6);
@@ -24,6 +25,7 @@ module.exports = smp.wrap({
     alias: {
       ...baseAliasConfig,
     },
+    extensions: extensionsConfig,
   },
   // use for load on demand
   optimization: {
@@ -44,12 +46,12 @@ module.exports = smp.wrap({
   module: {
     rules: [
       {
-        test: /\.(jsx?)|(css)$/,
+        test: /\.(tsx?)|(jsx?)|(css)$/,
         loader: "cache-loader",
         //  每次启动webpack进入dev模式的构建，都清空上一次缓存的编译结果
         options: { cacheIdentifier: cacheId },
       },
-      { test: /\.js|jsx$/, loader: "babel-loader", exclude: /node_modules/},
+      { test: /\.(ts|js)x?$/, loader: "babel-loader", exclude: /node_modules/ },
       {
         test: /\.css$/,
         exclude: /node_modules/,
@@ -68,7 +70,7 @@ module.exports = smp.wrap({
       {
         test: /\.css$/,
         include: /node_modules/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
       baseLoadersConfig.fileLoader,
     ],

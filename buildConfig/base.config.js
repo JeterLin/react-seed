@@ -9,6 +9,7 @@ module.exports = {
     "@service": path.join(rootPath, "/src/service"),
     "@assets": path.join(rootPath, "/src/assets"),
   },
+  extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
   loaders: {
     fileLoader: {
       test: /\.(png|svg|jpg|gif)$/,
@@ -17,10 +18,10 @@ module.exports = {
   },
   entry: {
     app: [
-        // polyfill Promise is not iterable on ie11
-        "core-js/modules/es6.array.iterator", 
-        "core-js/modules/es6.object.assign", 
-        "./src/index.js"
-      ],
+      // polyfill Promise is not iterable on ie11
+      "core-js/modules/es6.array.iterator",
+      "core-js/modules/es6.object.assign",
+      "./src/index.js",
+    ],
   },
 };
