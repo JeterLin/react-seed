@@ -51,6 +51,7 @@ module.exports = smp.wrap({
         //  每次启动webpack进入dev模式的构建，都清空上一次缓存的编译结果
         options: { cacheIdentifier: cacheId },
       },
+      // 不在babel-loader的options添加preset和plugins相关配置，这些配置都存放在.babelrc中
       { test: /\.(ts|js)x?$/, loader: "babel-loader", exclude: /node_modules/ },
       {
         test: /\.css$/,
