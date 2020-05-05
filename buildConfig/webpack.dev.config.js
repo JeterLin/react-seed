@@ -83,6 +83,6 @@ module.exports = smp.wrap({
     hot: true,
     inline: true,
     open: true,
-    compress: true,
+    compress: true
   },
 });

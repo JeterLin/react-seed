@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route, Link } from "@router";
 import reactDemoImg from "@assets/react-demo.jpg";
-import TestTsx, {MyTsx} from "./TestTsx.tsx"
+import TestTsx, {MyTsx} from "./TestTsx"
 
 import ss from "./demo.css";
 export default function Demo() {
