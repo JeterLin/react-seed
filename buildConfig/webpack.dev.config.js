@@ -7,7 +7,7 @@ const rootPath = require("./rootPath");
 const {
   alias: baseAliasConfig,
   loaders: baseLoadersConfig,
-  entry: entryConfig
+  entry: entryConfig,
 } = require("./base.config");
 
 const cacheId = "0.0.1-" + String(Math.random() * 1e6).slice(0, 6);
@@ -26,21 +26,21 @@ module.exports = smp.wrap({
     },
   },
   // use for load on demand
-  // optimization: {
-  //   splitChunks: {
-  //     name: true,
-  //     cacheGroups: {
-  //       commons: {
-  //         test: /\.jsx?$/,
-  //         name: "vendors",
-  //         chunks: "all",
-  //         minChunks: 1,
-  //         minSize: 30000,
-  //         reuseExistingChunk: true,
-  //       },
-  //     },
-  //   },
-  // },
+  optimization: {
+    splitChunks: {
+      name: true,
+      cacheGroups: {
+        commons: {
+          test: /\.jsx?$/,
+          name: "vendors",
+          chunks: "all",
+          minChunks: 2,
+          minSize: 30000,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
@@ -49,10 +49,26 @@ module.exports = smp.wrap({
         //  每次启动webpack进入dev模式的构建，都清空上一次缓存的编译结果
         options: { cacheIdentifier: cacheId },
       },
-      { test: /\.js|jsx$/, loader: "babel-loader" },
+      { test: /\.js|jsx$/, loader: "babel-loader", exclude: /node_modules/},
       {
         test: /\.css$/,
-        use: ["style-loader", baseLoadersConfig.cssLoader],
+        exclude: /node_modules/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[path][name]__[local]--[hash:base64:5]",
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: ['style-loader', 'css-loader']
       },
       baseLoadersConfig.fileLoader,
     ],

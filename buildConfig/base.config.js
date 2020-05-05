@@ -10,10 +10,6 @@ module.exports = {
     "@assets": path.join(rootPath, "/src/assets"),
   },
   loaders: {
-    cssLoader: {
-      loader: "css-loader",
-      options: { modules: true },
-    },
     fileLoader: {
       test: /\.(png|svg|jpg|gif)$/,
       loader: "file-loader",
@@ -23,6 +19,7 @@ module.exports = {
     app: [
         // polyfill Promise is not iterable on ie11
         "core-js/modules/es6.array.iterator", 
+        "core-js/modules/es6.object.assign", 
         "./src/index.js"
       ],
   },

@@ -35,13 +35,42 @@ module.exports = smp.wrap({
         sourceMap: false,
       }),
     ],
+    splitChunks: {
+      name: true,
+      cacheGroups: {
+        commons: {
+          test: /\.jsx?$/,
+          name: "vendors",
+          chunks: "all",
+          minChunks: 2,
+          minSize: 30000,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   module: {
     rules: [
-      { test: /\.js|jsx$/, loader: "babel-loader" },
+      { test: /\.js|jsx$/, loader: "babel-loader", exclude: /node_modules/ },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, baseLoadersConfig.cssLoader],
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[hash:base64:8]",
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       baseLoadersConfig.fileLoader,
     ],
