@@ -74,6 +74,7 @@ module.exports = smp.wrap({
         include: /node_modules/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      baseLoadersConfig.lessLoader,
       baseLoadersConfig.fileLoader,
     ],
   },

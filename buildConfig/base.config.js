@@ -15,6 +15,10 @@ module.exports = {
       test: /\.(png|svg|jpg|gif)$/,
       loader: "file-loader",
     },
+    lessLoader:  {
+      test: /\.less$/,
+      loader: 'less-loader'
+    },
   },
   entry: {
     app: [

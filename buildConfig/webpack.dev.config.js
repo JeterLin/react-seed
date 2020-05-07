@@ -67,12 +67,14 @@ module.exports = smp.wrap({
             },
           },
         ],
+        
       },
       {
         test: /\.css$/,
         include: /node_modules/,
         use: ["style-loader", "css-loader"],
       },
+      baseLoadersConfig.lessLoader,
       baseLoadersConfig.fileLoader,
     ],
   },
