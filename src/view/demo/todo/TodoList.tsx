@@ -2,6 +2,7 @@ import React from 'react';
 import { List } from 'antd';
 
 import { TodoItem } from './TodoItem';
+import ss from './TodoList.less';
 const dataSource = [
     {
         id: 1,
@@ -34,6 +35,7 @@ export default function TodoList() {
             size="small"
             bordered
             dataSource={dataSource}
+            className={ss.listWrapper}
             renderItem={(item) => (
                 <List.Item>
                     <TodoItem item={item} />

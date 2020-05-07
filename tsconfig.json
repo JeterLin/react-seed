@@ -76,6 +76,6 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "jsx": "react"
   },
-  "include": ["src/**/*","./external.d.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
