@@ -1,18 +1,14 @@
 import React, { useState, useCallback } from 'react';
 // import { Checkbox } from 'antd';
-import {Checkbox} from '@view/baseComponent';
+import { Checkbox } from '@view/baseComponent';
+import { TodoItemType } from '@store/todoList/types';
 import cn from 'classnames';
 import '@styles/reset.less';
 
 import ss from './TodoItem.less';
 
-type PropTypesBase = Partial<{
-    item: Partial<{
-        title: string;
-        id: number | string;
-    }>;
-}>;
-export function TodoItem<PropTypes extends PropTypesBase >(props: PropTypes): JSX.Element | null {
+type PropTypesBase = Partial<{ item: TodoItemType }>;
+export function TodoItem<PropTypes extends PropTypesBase>(props: PropTypes): JSX.Element | null {
     const [done, setTaskDone] = useState<boolean>(false);
     const handleCheck = useCallback(() => {
         setTaskDone((preState) => !preState);

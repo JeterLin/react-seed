@@ -1,9 +1,8 @@
-import { configureStore, Action, Reducer } from '@reduxjs/toolkit';
+import { configureStore, Action, Reducer, combineReducers } from '@reduxjs/toolkit';
 // import {} from './todoList';
 type RootStateType = Partial<{ [key: string]: any }>;
 // const rootReducer = (state: RootStateType, action: Action): RootStateType => state;
-const rootReducer: Reducer<RootStateType, Action> = (state = {}, action) => state;
-type RootState = ReturnType<typeof rootReducer>;
+const rootReducer: Reducer<RootStateType, Action> = (state = {}, action: Action) => state;
 const store = configureStore({
     reducer: rootReducer,
 });
