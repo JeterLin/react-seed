@@ -1,62 +1,64 @@
-import React, { Suspense, lazy } from "react";
-import { Switch, Route, Link } from "@router";
-import reactDemoImg from "@assets/react-demo.jpg";
+import React, { Suspense, lazy } from 'react';
+import { Switch, Route, Link } from '@router';
+import reactDemoImg from '@assets/react-demo.jpg';
 
-import ss from "./demo.css";
+import ss from './demo.css';
 export default function Demo() {
-  return <h2>Demo</h2>;
+    return <h2>Demo</h2>;
 }
 
 function LoadingThings(props) {
-  return <h2>{props.children}</h2>;
+    return <h2>{props.children}</h2>;
 }
 // load the component after 2s
 const lazyComponent = (p) => {
-  if (p && typeof p.then === "function") {
-    return p
-      .then(({ default: c }) => {
-        return new Promise((r, rj) => {
-          setTimeout(() => {
-            r({ default: c });
-          }, 2e3);
-        });
-      })
-      .catch((err) => "error with loading component");
-  }
-  throw "argument type with lazyComponent must be Promise";
+    if (p && typeof p.then === 'function') {
+        return p
+            .then(({ default: c }) => {
+                return new Promise((r, rj) => {
+                    setTimeout(() => {
+                        r({ default: c });
+                    }, 2e3);
+                });
+            })
+            .catch((err) => 'error with loading component');
+    }
+    throw 'argument type with lazyComponent must be Promise';
 };
-const AsyncHome = lazy(() => lazyComponent(import("./Home")));
-const AsyncAbout = lazy(() => import("./About"));
-
+const AsyncHome = lazy(() => lazyComponent(import('./Home')));
+const AsyncAbout = lazy(() => import('./About'));
+const AsyncTodoList = lazy(() => import('./todo/TodoList'));
 
 export function DemoRouter() {
-  return (
-    <div className={ss.banner}>
-      <header className={ss.bannerHeader}>
-        <img src={reactDemoImg} />
-        <nav>
-          <Link to="/home">Home</Link>&nbsp;|&nbsp;
-          <Link to="/about">About</Link>
-        </nav>
-      </header>
-      <div style={{width: '800px'}}>
-        <Switch>
-          <Route path="/home">
-            <Suspense
-              fallback={<LoadingThings>Loading home ...</LoadingThings>}
-            >
-              <AsyncHome />
-            </Suspense>
-          </Route>
-          <Route path="/about">
-            <Suspense
-              fallback={<LoadingThings>Loading About ...</LoadingThings>}
-            >
-              <AsyncAbout />
-            </Suspense>
-          </Route>
-        </Switch>
-      </div>
-    </div>
-  );
+    return (
+        <div className={ss.banner}>
+            <header className={ss.bannerHeader}>
+                <img src={reactDemoImg} />
+                <nav>
+                    <Link to="/home">Home</Link>&nbsp;|&nbsp;
+                    <Link to="/about">About</Link>&nbsp;|&nbsp;
+                    <Link to="/todo">Todo</Link>
+                </nav>
+            </header>
+            <div style={{ width: '800px' }}>
+                <Switch>
+                    <Route path="/home">
+                        <Suspense fallback={<LoadingThings>Loading home ...</LoadingThings>}>
+                            <AsyncHome />
+                        </Suspense>
+                    </Route>
+                    <Route path="/about">
+                        <Suspense fallback={<LoadingThings>Loading About ...</LoadingThings>}>
+                            <AsyncAbout />
+                        </Suspense>
+                    </Route>
+                    <Route path="/todo">
+                        <Suspense fallback={<LoadingThings>Loading todo ...</LoadingThings>}>
+                            <AsyncTodoList />
+                        </Suspense>
+                    </Route>
+                </Switch>
+            </div>
+        </div>
+    );
 }
