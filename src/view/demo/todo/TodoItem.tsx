@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { Checkbox } from 'antd';
+// import { Checkbox } from 'antd';
+import {Checkbox} from '@view/baseComponent';
 import cn from 'classnames';
 import '@styles/reset.less';
 
