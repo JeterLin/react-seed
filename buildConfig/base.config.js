@@ -24,7 +24,7 @@ module.exports = {
             // polyfill Promise is not iterable on ie11
             'core-js/modules/es6.array.iterator',
             'core-js/modules/es6.object.assign',
-            './src/index.js',
+            './src/index.tsx',
         ],
     },
 };
