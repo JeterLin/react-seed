@@ -11,7 +11,7 @@ module.exports = {
         '@styles': path.join(rootPath, '/src/styles'),
         '@utils': path.join(rootPath, '/src/utils'),
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.ts','.d.ts', '.tsx', '.json'],
     loaders: {
         fileLoader: {
             test: /\.(png|svg|jpg|gif)$/,
