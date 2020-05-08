@@ -11,3 +11,6 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
         },
     },
 });
+
+export default todoSlice.reducer;
+export const actions = todoSlice.actions;
