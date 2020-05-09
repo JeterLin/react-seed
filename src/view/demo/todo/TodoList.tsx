@@ -17,7 +17,7 @@ type PropsFromWrapper = Partial<{
 }>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     const handleAddTodo = useCallback((text) => {
-        props.addItem && props.addItem({ id: Math.floor(Math.random() * 10), title: text });
+        props.addItem && props.addItem({ id: Date.now(), title: text });
     }, []);
     const handleClearTodo = useCallback(() => {
         props.clearItems && props.clearItems();
