@@ -5,6 +5,8 @@ import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
 import { ClearTodo } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
+import { DetailTodo } from './DetailTodo';
+import { BtnGroup } from './BtnGroup';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
 import { StateType, TodoItemType, actions as todoActions } from '@store/todoList';
 import { RootStateType, AppDispatch } from '@store';
@@ -36,7 +38,10 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                 renderItem={(item) => (
                     <ListItem>
                         <TodoItem item={item} />
-                        <DeleteTodo onDelete={handleDelItem} item={item} />
+                        <BtnGroup>
+                            <DetailTodo item={item}/>
+                            <DeleteTodo onDelete={handleDelItem} item={item} />
+                        </BtnGroup>
                     </ListItem>
                 )}
             />
