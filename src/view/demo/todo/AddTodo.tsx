@@ -17,7 +17,7 @@ export function AddTodo(props: PropsType): JSX.Element {
     }, []);
     return (
         <div className={ss.todoWrapper}>
-            <Input onPressEnter={handleSubmit} onChange={handleChange} value={text} size="large" />
+            <Input onPressEnter={handleSubmit} onChange={handleChange} value={text} size="large" placeholder="Press enter to submit"/>
         </div>
     );
 }

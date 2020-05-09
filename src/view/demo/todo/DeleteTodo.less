@@ -1,0 +1,16 @@
+@import "variables.less";
+.delBtn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: @btnWidth;
+    height: 46px;
+    right: -@btnWidth;
+    border-radius: 0;
+    transition: right ease-in-out 0.2s;
+}
+:global(.ant-list-item) {
+    &:hover .delBtn {
+        right: 0;
+    }
+}
