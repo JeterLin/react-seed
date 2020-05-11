@@ -6,20 +6,16 @@ import '@styles/reset.less';
 
 import ss from './TodoItem.less';
 
-type PropTypesBase = Partial<{ item: TodoItemType; toggleTodo: (nextState: boolean) => void }>;
+type PropTypesBase = { item: TodoItemType } & Partial<{ onToggleTodo: (item: TodoItemType, nextState: boolean) => void }>;
 export function TodoItem<PropTypes extends PropTypesBase>(props: PropTypes): JSX.Element | null {
-    const [done, setTaskDone] = useState<boolean>(false);
+    const { item, onToggleTodo } = props;
     const handleCheck = useCallback(() => {
-        setTaskDone((preState) => {
-            const nextState = !preState;
-            props.toggleTodo && props.toggleTodo(nextState);
-            return nextState;
-        });
-    }, []);
-    return props.item ? (
+        onToggleTodo && onToggleTodo(item, !item.done);
+    }, [item]);
+    return item ? (
         <p>
-            <Checkbox checked={done} onChange={handleCheck} />
-            <span className={cn(ss.taskText, { [ss.taskDone]: done })}>{props.item.title}</span>
+            <Checkbox checked={item.done} onChange={handleCheck} />
+            <span className={cn(ss.taskText, { [ss.taskDone]: item.done })}>{item.title}</span>
         </p>
     ) : null;
 }

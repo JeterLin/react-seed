@@ -1,5 +1,5 @@
 import { createSlice, SliceCaseReducers, PayloadAction } from '@reduxjs/toolkit';
-import { TodoItemType, StateType } from './types';
+import { TodoItemType, StateType, ToggleItemType } from './types';
 
 const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
@@ -35,18 +35,27 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
         addItem(state, action: PayloadAction<TodoItemType>) {
             state.todoList.push(action.payload);
         },
-        clearItems(state) {
-            // state = [];
-            state.todoList.splice(0, state.todoList.length);
+        clearItems(state, action: PayloadAction<boolean>) {
+            if (action.payload) {
+                state.todoList = state.todoList.filter((item) => typeof item.done !== 'boolean' || !item.done);
+            } else {
+                state.todoList.splice(0, state.todoList.length);
+            }
         },
         delItem(state, action: PayloadAction<TodoItemType>) {
             const { id } = action.payload;
-            // state.splice(state.indexOf());
             state.todoList = state.todoList.filter((item) => item.id !== id);
+        },
+        toggleItem(state, action: PayloadAction<ToggleItemType>) {
+            const { id, done: nextDone } = action.payload;
+            const [selectedItem] = state.todoList.filter((item) => item.id === id);
+            if (selectedItem) {
+                selectedItem.done = nextDone;
+            }
         },
     },
 });
 
 export default todoSlice.reducer;
 export const actions = todoSlice.actions;
-export { TodoItemType, StateType };
+export { TodoItemType, StateType, ToggleItemType };

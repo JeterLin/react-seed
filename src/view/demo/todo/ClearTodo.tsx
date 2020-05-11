@@ -1,11 +1,22 @@
-import React from 'react';
-import { Button } from '@view/baseComponent';
+import React, { useCallback, useState } from 'react';
+import { Button, Switch } from '@view/baseComponent';
 
 import ss from './ClearTodo.less';
-export function ClearTodo<PropsTypes extends Partial<{ onClear: () => void }>>(props: PropsTypes): JSX.Element | null {
+export type OnClearType = (clearDone?: boolean) => void;
+export function ClearTodo<PropsTypes extends Partial<{ onClear: OnClearType }>>(props: PropsTypes): JSX.Element | null {
+    const [clearDone, setClearDone] = useState<boolean>(false);
+    const handleCheckedChange = useCallback(() => {
+        setClearDone((preClearDone) => !preClearDone);
+    }, []);
+    const handleClearClick = useCallback(() => {
+        props.onClear && props.onClear(clearDone);
+    }, [clearDone]);
     return (
-        <Button type="primary" onClick={props.onClear} danger className={ss.clearBtn}>
-            Clear
-        </Button>
+        <div>
+            Clear Done: <Switch size="small" checked={clearDone} onChange={handleCheckedChange} />
+            <Button type="primary" onClick={handleClearClick} danger className={ss.clearBtn}>
+                Clear
+            </Button>
+        </div>
     );
 }

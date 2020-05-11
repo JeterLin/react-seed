@@ -3,29 +3,33 @@ import { List, ListItem } from '@view/baseComponent';
 
 import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
-import { ClearTodo } from './ClearTodo';
+import { ClearTodo,OnClearType } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
-import { StateType, TodoItemType, actions as todoActions } from '@store/todoList';
+import { StateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
 import { RootStateType, AppDispatch } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<{
     todoList: Array<TodoItemType>;
     addItem: Function;
-    clearItems: Function;
+    clearItems: (clearDone?: boolean) => void;
     delItem: Function;
+    toggleItem: (item: ToggleItemType) => void;
 }>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     const handleAddTodo = useCallback((text) => {
         props.addItem && props.addItem({ id: Date.now(), title: text });
     }, []);
-    const handleClearTodo = useCallback(() => {
-        props.clearItems && props.clearItems();
+    const handleClearTodo = useCallback<OnClearType>((clearDone) => {
+        props.clearItems && props.clearItems(clearDone);
     }, []);
     const handleDelItem = useCallback((item) => {
         props.delItem && props.delItem(item);
+    }, []);
+    const handleToggleItem = useCallback((item, nextDone) => {
+        props.toggleItem && props.toggleItem({ ...item, done: nextDone });
     }, []);
     const isEmptyList = Array.isArray(props.todoList) && props.todoList.length === 0;
     return (
@@ -37,9 +41,9 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                 className={ss.listWrapper}
                 renderItem={(item) => (
                     <ListItem>
-                        <TodoItem item={item} />
+                        <TodoItem item={item} onToggleTodo={handleToggleItem} />
                         <BtnGroup>
-                            <DetailTodo item={item}/>
+                            <DetailTodo item={item} />
                             <DeleteTodo onDelete={handleDelItem} item={item} />
                         </BtnGroup>
                     </ListItem>

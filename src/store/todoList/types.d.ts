@@ -4,4 +4,5 @@ export type TodoItemType = Partial<{
     done: boolean;
 }>;
 
+export type ToggleItemType = { id: string | number; done: boolean };
 export type StateType = { todoList: Array<TodoItemType> };
