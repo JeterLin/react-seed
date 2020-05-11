@@ -2,9 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { Input } from '@view/baseComponent';
 import ss from './AddTodo.less';
 
-type ReactEventHandlerType = (event: string) => void;
 type PropsType = Partial<{
-    onSubmit: ReactEventHandlerType;
+    onSubmit: (event: string) => void;
 }>;
 export function AddTodo(props: PropsType): JSX.Element {
     const [text, setText] = useState<string>('');
