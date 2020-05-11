@@ -19,7 +19,7 @@
 这里是编码约定介绍...未完待续
 
 ## reduxjs-toolkit：基于reduxjs的数据状态库介绍
-未完待续...
+[`reduxjs`](https://redux.js.org/introduction/getting-started)是一个数据状态管理库，它可以作为视图层组件的外置状态库，进行跨组件通讯。而redux toolkit则是集合了redux及其优秀开源中间件形成的一个基于redux的增强工具包，并且优化了为`reduxjs`编写`action creator`和`reducer`的编程体验。这些中间件包括[`immer`](https://github.com/immerjs/immer)，[`redux-thunk`](https://github.com/reduxjs/redux-thunk)。
 
 ## 使用typescript编写react组件
 
