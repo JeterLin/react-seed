@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var TerserPlugin = require('terser-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { alias: baseAliasConfig, loaders: baseLoadersConfig, entry: entryConfig, extensions: extensionsConfig } = require('./base.config');
 
 const smp = new SpeedMeasurePlugin();
@@ -81,5 +82,6 @@ module.exports = smp.wrap({
             template: path.join(rootPath, '/src/index.ejs'),
             minify: false,
         }),
+        new CleanWebpackPlugin()
     ],
 });
