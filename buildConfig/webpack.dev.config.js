@@ -28,13 +28,18 @@ module.exports = smp.wrap({
             name: true,
             cacheGroups: {
                 commons: {
-                    test: /\.jsx?$/,
-                    name: 'vendors',
+                    test: /src\/.*\.(tsx?|jsx?)$/,
+                    name: 'commons',
                     chunks: 'all',
                     minChunks: 2,
                     minSize: 30000,
                     reuseExistingChunk: true,
                 },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
             },
         },
     },

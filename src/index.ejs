@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <% var vendorName = Object.keys(compilation.assets).filter(function(name){return name.indexOf('vendor')!==-1;})[0] %>
-    <% if(vendorName) { %><script src="<%= vendorName %>"></script><% } %>
+    <% var vendorName = Object.keys(compilation.assets).filter(function(name){return name.indexOf('vendor')!==-1 && /\.js$/.test(name);})[0] %>
+    <% if(vendorName && Object.keys(compilation.assets).indexOf('app')!==-1) { %><script id="vendors" src="<%= vendorName %>"></script><% } %>
 </body>
 </html>

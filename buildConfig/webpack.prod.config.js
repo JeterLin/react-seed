@@ -83,10 +83,10 @@ module.exports = smp.wrap({
         new MiniCssExtractPlugin({
             filename: '[name].css',
         }),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(rootPath, '/src/index.ejs'),
             minify: false,
         }),
-        new CleanWebpackPlugin()
     ],
 });
