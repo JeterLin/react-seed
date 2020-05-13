@@ -1,9 +1,9 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const mockerApi = require('mocker-api');
 const smp = new SpeedMeasurePlugin();
 const rootPath = require('./rootPath');
+const mainApi = require(`${rootPath}/mockApi/api`);
 const { alias: baseAliasConfig, loaders: baseLoadersConfig, entry: entryConfig, extensions: extensionsConfig } = require('./base.config');
 
 const cacheId = '0.0.1-' + String(Math.random() * 1e6).slice(0, 6);
@@ -38,8 +38,8 @@ module.exports = smp.wrap({
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all'
-                }
+                    chunks: 'all',
+                },
             },
         },
     },
@@ -86,5 +86,8 @@ module.exports = smp.wrap({
         inline: true,
         open: true,
         compress: true,
+        before(app) {
+            mockerApi(app, path.resolve(`${rootPath}/mockApi/api.js`), mainApi);
+        },
     },
 });
