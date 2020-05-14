@@ -3,9 +3,12 @@ import todo from './todoList';
 
 const customeReducer: Reducer<{}> = (state = {}, action) => state;
 const rootReducer = combineReducers({ todo, test: customeReducer });
-const store = configureStore({
-    reducer: rootReducer,
-});
-export default store;
-export type AppDispatch = typeof store.dispatch;
+export default function setupStore() {
+    const store = configureStore({
+        reducer: rootReducer,
+    });
+    return store;
+}
+export type StoreType = ReturnType<typeof setupStore>;
+export type AppDispatch = StoreType['dispatch'];
 export type RootStateType = ReturnType<typeof rootReducer>;
