@@ -1,16 +1,15 @@
-import { ServiceType, ExceptionHandlerType } from '../types';
+import { ServiceType , ServiceHandlerType} from '../types';
 
 // 对toService方法返回的对象，进行异常响应数据处理
-export function wrapRespException(service: ServiceType, handleException?: ExceptionHandlerType): ServiceType {
-    const result: ServiceType = {};
+export function wrapRespException<T extends object>(service: ServiceType<T>): ServiceType<T> {
+    const result: {[K : string]: ServiceHandlerType} = {};
     Object.keys(service).forEach((key) => {
-        const nextHandler: ServiceType[typeof key] = (url, payload) => {
-            return service[key](url, payload).catch((err) => {
-                handleException && handleException(err, url, payload);
+        const nextHandler: ServiceHandlerType = (payload) => {
+            return service[key as keyof T](payload).catch((err) => {
                 return Promise.reject(err);
             });
         };
-        service[key] = nextHandler;
+        result[key] = nextHandler;
     });
-    return result;
+    return result as ServiceType<T>;
 }
