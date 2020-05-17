@@ -41,9 +41,7 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
         },
     },
     extraReducers: {
-        [fetchTodoList.fulfilled]: (state, action: PayloadAction<TodoItemType[]>) => {
-            state.todoList = action.payload;
-        },
+        [fetchTodoList.fulfilled]: initTodoList,
     },
 });
 
