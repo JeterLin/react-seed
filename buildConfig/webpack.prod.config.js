@@ -47,8 +47,8 @@ module.exports = smp.wrap({
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all'
-                }
+                    chunks: 'all',
+                },
             },
         },
     },
