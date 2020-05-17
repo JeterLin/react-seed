@@ -2,3 +2,4 @@
 export {toService} from './toService';
 export * from './connectStore';
 export {wrapRespException} from './wrapRespException';
+export {makeUrl} from './serviceConfig';
