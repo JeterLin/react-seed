@@ -6,8 +6,9 @@ import '@styles/reset.less';
 
 import ss from './TodoItem.less';
 
-type PropTypesBase = { item: TodoItemType } & Partial<{ onToggleTodo: (item: TodoItemType, nextState: boolean) => void }>;
-export function TodoItem<PropTypes extends PropTypesBase>(props: PropTypes): JSX.Element | null {
+// type PropTypesBase = { item: TodoItemType } & Partial<{ onToggleTodo: (item: TodoItemType, nextState: boolean) => void }>;
+type IProps = { item: TodoItemType } & Partial<{ onToggleTodo: (item: TodoItemType, nextState: boolean) => void }>;
+export function TodoItem(props: IProps): JSX.Element | null {
     const { item, onToggleTodo } = props;
     const handleCheck = useCallback(() => {
         onToggleTodo && onToggleTodo(item, !item.done);

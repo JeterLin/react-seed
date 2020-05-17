@@ -3,7 +3,8 @@ import { Button, Switch } from '@view/baseComponent';
 
 import ss from './ClearTodo.less';
 export type OnClearType = (clearDone?: boolean) => void;
-export function ClearTodo<PropsTypes extends Partial<{ onClear: OnClearType }>>(props: PropsTypes): JSX.Element | null {
+type IProps = Partial<{ onClear: OnClearType }>;
+export function ClearTodo(props: IProps): JSX.Element | null {
     const [clearDone, setClearDone] = useState<boolean>(false);
     const handleCheckedChange = useCallback(() => {
         setClearDone((preClearDone) => !preClearDone);

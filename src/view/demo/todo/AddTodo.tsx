@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { Input } from '@view/baseComponent';
 import ss from './AddTodo.less';
 
-type PropsType = Partial<{
+type IProps = Partial<{
     onSubmit: (event: string) => void;
 }>;
-export function AddTodo(props: PropsType): JSX.Element {
+export function AddTodo(props: IProps): JSX.Element {
     const [text, setText] = useState<string>('');
     const handleSubmit = useCallback((e) => {
         props.onSubmit && props.onSubmit(text);
