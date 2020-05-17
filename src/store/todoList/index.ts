@@ -1,40 +1,26 @@
-import { createSlice, SliceCaseReducers, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { todoService } from '@service/todo';
 import { TodoItemType, StateType, ToggleItemType } from './types';
+function addItem(state: StateType, action: PayloadAction<TodoItemType>) {
+    state.todoList.push(action.payload);
+}
+
+function initTodoList(state: StateType, action: PayloadAction<TodoItemType[]>) {
+    state.todoList = action.payload;
+}
+
+const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
+    const { data: todoList } = await todoService.listTodo();
+    return todoList;
+});
 
 const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
     initialState: {
-        todoList: [
-            {
-                id: 1,
-                title: 'item 1',
-            },
-            {
-                id: 2,
-                title: 'item 2',
-            },
-            {
-                id: 3,
-                title: 'item 3',
-            },
-            {
-                id: 4,
-                title: 'item 4',
-            },
-            {
-                id: 5,
-                title: 'item 5',
-            },
-            {
-                id: 6,
-                title: 'item 6',
-            },
-        ],
+        todoList: [],
     },
     reducers: {
-        addItem(state, action: PayloadAction<TodoItemType>) {
-            state.todoList.push(action.payload);
-        },
+        addItem,
         clearItems(state, action: PayloadAction<boolean>) {
             if (action.payload) {
                 state.todoList = state.todoList.filter((item) => typeof item.done !== 'boolean' || !item.done);
@@ -54,8 +40,13 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
             }
         },
     },
+    extraReducers: {
+        [fetchTodoList.fulfilled]: (state, action: PayloadAction<TodoItemType[]>) => {
+            state.todoList = action.payload;
+        },
+    },
 });
 
 export default todoSlice.reducer;
-export const actions = todoSlice.actions;
+export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList });
 export { TodoItemType, StateType, ToggleItemType };

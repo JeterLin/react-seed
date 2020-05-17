@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { List, ListItem } from '@view/baseComponent';
 
 import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
-import { ClearTodo,OnClearType } from './ClearTodo';
+import { ClearTodo, OnClearType } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
@@ -17,6 +17,7 @@ type PropsFromWrapper = Partial<{
     clearItems: (clearDone?: boolean) => void;
     delItem: Function;
     toggleItem: (item: ToggleItemType) => void;
+    fetchTodoList: () => void;
 }>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     const handleAddTodo = useCallback((text) => {
@@ -30,6 +31,10 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     }, []);
     const handleToggleItem = useCallback((item, nextDone) => {
         props.toggleItem && props.toggleItem({ ...item, done: nextDone });
+    }, []);
+    // componentDidUpdate
+    useEffect(() => {
+        props.fetchTodoList && props.fetchTodoList();
     }, []);
     const isEmptyList = Array.isArray(props.todoList) && props.todoList.length === 0;
     return (
