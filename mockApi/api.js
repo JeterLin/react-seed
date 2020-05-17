@@ -10,21 +10,57 @@ function toApiConfig(apis) {
     }
     return result;
 }
+const todoList = [
+    { id: 1, title: 'item 1' },
+    { id: 2, title: 'item 2' },
+    { id: 3, title: 'item 3' },
+    { id: 4, title: 'item 4' },
+];
 var apis = {
     GET: {
-        '/mockapi/todolist': {
-            data: [
-                { id: 1, title: 'item 1' },
-                { id: 2, title: 'item 2' },
-                { id: 3, title: 'item 3' },
-                { id: 4, title: 'item 4' },
-            ],
-            code: 0,
+        '/mockapi/todo/list': (req, res) => {
+            return res.status(200).json({
+                code: 0,
+                data: todoList,
+            });
         },
     },
-    // POST: {},
+    POST: {
+        '/mockapi/todo/add': (req, res) => {
+            if (req.body) {
+                const { id, title } = req.body;
+                if (id && title) {
+                    todoList.push({id, title});
+                    return res.status(200).json({
+                        code: 0,
+                        data: true,
+                    });
+                }
+            }
+            return res.status(400).json({
+                code: -1,
+                data: false,
+                errMsg: 'wrong payload with todo/add, please check your request',
+            });
+        },
+    },
     // PUT: {},
-    // DELETE: {},
+    DELETE: {
+        '/mockapi/todo/delete': (req, res) => {
+            const { id } = req.query;
+            if (id) {
+                return res.status(200).json({
+                    code : 0,
+                    data: true
+                });
+            }
+            return res.status(400).json({
+                code: -1,
+                data: false,
+                errMsg: 'wrong request params in the url, please check your url'
+            });
+        },
+    },
 };
 var proxy = {
     _proxy: {
