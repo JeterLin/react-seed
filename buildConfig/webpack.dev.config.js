@@ -35,6 +35,7 @@ module.exports = smp.wrap({
                     minSize: 30000,
                     reuseExistingChunk: true,
                 },
+                // extract all third-party packages to vendors.bundle.js
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
