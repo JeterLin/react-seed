@@ -28,6 +28,7 @@ const lazyComponent = (p) => {
 const AsyncHome = lazy(() => lazyComponent(import('./Home')));
 const AsyncAbout = lazy(() => import('./About'));
 const AsyncTodoList = lazy(() => import('./todo/TodoList'));
+const AsyncTodoDetail = lazy(() => import('./todoDetail/TodoDetail'));
 
 export function DemoRouter() {
     return (
@@ -41,23 +42,22 @@ export function DemoRouter() {
                 </nav>
             </header>
             <div style={{ width: '800px' }}>
-                <Switch>
-                    <Route path="/home">
-                        <Suspense fallback={<LoadingThings>Loading home ...</LoadingThings>}>
+                <Suspense fallback={<LoadingThings>loading things ...</LoadingThings>}>
+                    <Switch>
+                        <Route path="/home">
                             <AsyncHome />
-                        </Suspense>
-                    </Route>
-                    <Route path="/about">
-                        <Suspense fallback={<LoadingThings>Loading About ...</LoadingThings>}>
+                        </Route>
+                        <Route path="/about">
                             <AsyncAbout />
-                        </Suspense>
-                    </Route>
-                    <Route path="/todo">
-                        <Suspense fallback={<LoadingThings>Loading todo ...</LoadingThings>}>
+                        </Route>
+                        <Route exact path="/todo">
                             <AsyncTodoList />
-                        </Suspense>
-                    </Route>
-                </Switch>
+                        </Route>
+                        <Route exact path="/todo/detailView">
+                            <AsyncTodoDetail />
+                        </Route>
+                    </Switch>
+                </Suspense>
             </div>
         </div>
     );
