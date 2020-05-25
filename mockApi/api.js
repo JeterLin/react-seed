@@ -1,3 +1,4 @@
+const delay = require('mocker-api/lib/delay');
 function toApiConfig(apis) {
     const result = {};
     const methods = Object.keys(apis);
@@ -83,4 +84,4 @@ var proxy = {
     },
     ...toApiConfig(apis),
 };
-module.exports = proxy;
+module.exports = delay(proxy, 1000);

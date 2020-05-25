@@ -7,6 +7,7 @@ function addItem(state: StateType, action: PayloadAction<TodoItemType>) {
 
 function initTodoList(state: StateType, action: PayloadAction<TodoItemType[]>) {
     state.todoList = action.payload;
+    state.loading = false;
 }
 
 const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
@@ -18,6 +19,7 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
     initialState: {
         todoList: [],
+        loading: false,
     },
     reducers: {
         addItem,
@@ -42,6 +44,12 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     },
     extraReducers: {
         [fetchTodoList.fulfilled]: initTodoList,
+        [fetchTodoList.pending](state) {
+            state.loading = true;
+        },
+        [fetchTodoList.rejected](state) {
+            state.loading = false;
+        },
     },
 });
 

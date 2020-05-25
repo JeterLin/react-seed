@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
-import { List, ListItem } from '@view/baseComponent';
+import cn from 'classnames';
+import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
+import { List, ListItem, Spin } from '@view/baseComponent';
 
 import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
@@ -7,12 +9,12 @@ import { ClearTodo, OnClearType } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
-import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
 import { StateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
 import { RootStateType, AppDispatch } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<{
     todoList: Array<TodoItemType>;
+    loading: boolean;
     addItem: Function;
     clearItems: (clearDone?: boolean) => void;
     delItem: Function;
@@ -59,12 +61,16 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                 <AddTodo onSubmit={handleAddTodo} />
                 {!isEmptyList ? <ClearTodo onClear={handleClearTodo} /> : null}
             </div>
+            <div className={cn(ss.loading, { [ss.enable]: props.loading })}>
+                <Spin spinning={props.loading} />
+            </div>
         </div>
     );
 }
 
-const mapStateToProps: MapStateToProps<{ todoList: TodoItemType[] }, {}, RootStateType> = (rootState) => {
-    return { todoList: rootState.todo.todoList };
+const mapStateToProps: MapStateToProps<{ todoList: TodoItemType[]; loading: boolean }, {}, RootStateType> = (rootState) => {
+    const { todo } = rootState;
+    return { todoList: todo.todoList, loading: todo.loading };
 };
 // method 1:
 // const mapDispatchToProps: MapDispatchToProps<{ addItem: (todo: TodoItemType) => void }, {}> = (dispatch, ownProps) => ({
