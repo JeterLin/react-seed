@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
-import { List, ListItem, Spin } from '@view/baseComponent';
+import { List, ListItem } from '@view/baseComponent';
 
 import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
@@ -43,6 +43,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
         <div className={ss.wrapper}>
             <List
                 bordered
+                loading={props.loading}
                 emptyListPlaceholder
                 dataSource={props.todoList}
                 className={ss.listWrapper}
@@ -60,9 +61,6 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                 {isEmptyList ? <span>Add item from here : </span> : null}
                 <AddTodo onSubmit={handleAddTodo} />
                 {!isEmptyList ? <ClearTodo onClear={handleClearTodo} /> : null}
-            </div>
-            <div className={cn(ss.loading, { [ss.enable]: props.loading })}>
-                <Spin spinning={props.loading} />
             </div>
         </div>
     );
