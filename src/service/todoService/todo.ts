@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { BaseRespType } from './types';
-import { toService, wrapRespException, makeUrl} from './_utils';
+// import axios from 'axios';
+import { BaseRespType } from '../types';
+import { axios, toService, wrapRespException, makeUrl } from '../_utils';
 export const todoService = wrapRespException(
     toService({
         addTodo(payload) {

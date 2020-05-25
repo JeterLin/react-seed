@@ -1,5 +1,5 @@
 import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { todoService } from '@service/todo';
+import { todoService } from '@service/todoService/todo';
 import { TodoItemType, StateType, ToggleItemType } from './types';
 function addItem(state: StateType, action: PayloadAction<TodoItemType>) {
     state.todoList.push(action.payload);

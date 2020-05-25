@@ -1,2 +1,1 @@
-export {setStore} from './_utils/connectStore';
-export {todoService} from './todo';
+export {todoService} from './todoService/todo';
