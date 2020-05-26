@@ -43,11 +43,11 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
         },
     },
     extraReducers: {
-        [fetchTodoList.fulfilled]: initTodoList,
-        [fetchTodoList.pending](state) {
+        [String(fetchTodoList.fulfilled)]: initTodoList,
+        [String(fetchTodoList.pending)](state) {
             state.loading = true;
         },
-        [fetchTodoList.rejected](state) {
+        [String(fetchTodoList.rejected)](state) {
             state.loading = false;
         },
     },
