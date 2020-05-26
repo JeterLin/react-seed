@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
-import cn from 'classnames';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
 import { List, ListItem } from '@view/baseComponent';
+import { IRouteChildrenProps } from '@router';
 
 import { TodoItem } from './TodoItem';
 import { AddTodo } from './AddTodo';
@@ -12,15 +12,17 @@ import { BtnGroup } from './BtnGroup';
 import { StateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
 import { RootStateType, AppDispatch } from '@store';
 import ss from './TodoList.less';
-type PropsFromWrapper = Partial<{
-    todoList: Array<TodoItemType>;
-    loading: boolean;
-    addItem: Function;
-    clearItems: (clearDone?: boolean) => void;
-    delItem: Function;
-    toggleItem: (item: ToggleItemType) => void;
-    fetchTodoList: () => void;
-}>;
+type PropsFromWrapper = Partial<
+    {
+        todoList: Array<TodoItemType>;
+        loading: boolean;
+        addItem: Function;
+        clearItems: (clearDone?: boolean) => void;
+        delItem: Function;
+        toggleItem: (item: ToggleItemType) => void;
+        fetchTodoList: () => void;
+    } & IRouteChildrenProps
+>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     const handleAddTodo = useCallback((text) => {
         props.addItem && props.addItem({ id: Date.now(), title: text });
@@ -33,6 +35,9 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     }, []);
     const handleToggleItem = useCallback((item, nextDone) => {
         props.toggleItem && props.toggleItem({ ...item, done: nextDone });
+    }, []);
+    const handleClickDetail = useCallback((item?: TodoItemType) => {
+        props.history && props.history.push(`/todo/detailView?id=${item ? item.id : ''}`);
     }, []);
     // componentDidUpdate
     useEffect(() => {
@@ -51,7 +56,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                     <ListItem>
                         <TodoItem item={item} onToggleTodo={handleToggleItem} />
                         <BtnGroup>
-                            <DetailTodo item={item} />
+                            <DetailTodo item={item} onDetail={handleClickDetail} />
                             <DeleteTodo onDelete={handleDelItem} item={item} />
                         </BtnGroup>
                     </ListItem>
@@ -66,9 +71,9 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     );
 }
 
-const mapStateToProps: MapStateToProps<{ todoList: TodoItemType[]; loading: boolean }, {}, RootStateType> = (rootState) => {
+const mapStateToProps: MapStateToProps<{ todoList: TodoItemType[]; loading: boolean } & IRouteChildrenProps, IRouteChildrenProps, RootStateType> = (rootState, ownProps) => {
     const { todo } = rootState;
-    return { todoList: todo.todoList, loading: todo.loading };
+    return { todoList: todo.todoList, loading: todo.loading, ...ownProps };
 };
 // method 1:
 // const mapDispatchToProps: MapDispatchToProps<{ addItem: (todo: TodoItemType) => void }, {}> = (dispatch, ownProps) => ({

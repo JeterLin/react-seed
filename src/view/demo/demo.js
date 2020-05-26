@@ -44,18 +44,10 @@ export function DemoRouter() {
             <div style={{ width: '800px' }}>
                 <Suspense fallback={<LoadingThings>loading things ...</LoadingThings>}>
                     <Switch>
-                        <Route path="/home">
-                            <AsyncHome />
-                        </Route>
-                        <Route path="/about">
-                            <AsyncAbout />
-                        </Route>
-                        <Route exact path="/todo">
-                            <AsyncTodoList />
-                        </Route>
-                        <Route exact path="/todo/detailView">
-                            <AsyncTodoDetail />
-                        </Route>
+                        <Route path="/home" component={AsyncHome}/>
+                        <Route path="/about" component={AsyncAbout}/>
+                        <Route exact path="/todo" render={(props) => <AsyncTodoList {...props} />} />
+                        <Route exact path="/todo/detailView" render={(props) => <AsyncTodoDetail {...props} />} />
                     </Switch>
                 </Suspense>
             </div>

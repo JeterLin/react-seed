@@ -4,7 +4,7 @@ import { TodoItemType } from '@store/todoList';
 
 import ss from './DetailTodo.less';
 
-type IProps = Partial<{ onDetail: (item: TodoItemType | undefined) => void; item: TodoItemType }>;
+type IProps = Partial<{ onDetail: (item?: TodoItemType ) => void; item: TodoItemType }>;
 export function DetailTodo(props: IProps): JSX.Element | null {
     const handleClick = useCallback(() => props.onDetail && props.onDetail(props.item), [props.item]);
     return (
