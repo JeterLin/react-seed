@@ -1,0 +1,13 @@
+.wrapper {
+    .borderLine(@property) {
+        @borderColor: #f0f0f0;
+        @{property}: solid 1px @borderColor;
+    }
+    width: 500px;
+    margin: 0 auto;
+    .borderLine(border);
+    .header {
+        .borderLine(border-bottom);
+        height: 52px;
+    }
+}
