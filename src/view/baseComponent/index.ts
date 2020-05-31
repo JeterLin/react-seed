@@ -1,5 +1,5 @@
 export { Table } from './Table';
-export { Input } from './Input';
+export * from './Input';
 export { Checkbox } from './Checkbox';
 export { Button } from './Button';
 export { List, ListItem } from './List/List';
@@ -10,3 +10,4 @@ export { Ellipsis } from './Icons/Ellipsis';
 export { ArrowLeft } from './Icons/ArrowLeft';
 export { Dropdown } from './Dropdown';
 export * from './menu/Menu';
+export * from './form/Form';
