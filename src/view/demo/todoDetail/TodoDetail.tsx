@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { IRouteChildrenProps } from '@router';
-import { ArrowLeft, Form, FormItem, Input, TextArea } from '@view/baseComponent';
+import { ArrowLeft, Form, FormItem, Input, TextArea, Button } from '@view/baseComponent';
 
 import ss from './TodoDetail.less';
 import { DetailTitle } from './DetailTitle';
 
 type IProps = IRouteChildrenProps;
 const FormTitle: FC<{ title: string }> = (props) => {
-    return <span className={ss.title}>{props.title}</span>;
+    return <span className={ss.labelText}>{props.title}</span>;
 };
 function TodoDetail(props: IProps) {
     const labelCol = { span: 6 };
@@ -32,6 +32,9 @@ function TodoDetail(props: IProps) {
                     </FormItem>
                 </Form>
             </div>
+            <footer className={ss.footer}>
+                <Button className={ss.footerBtn} type="primary" size="large">Submit</Button>
+            </footer>
         </div>
     );
 }
