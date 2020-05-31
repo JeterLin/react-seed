@@ -1,0 +1,1 @@
+export {arrayNotEmpty} from './arrayNotEmpty';
