@@ -20,7 +20,7 @@ export function DetailTitle(props: IProps): JSX.Element {
     const menu = <Menu menuItems={MenuItemsConfig} onClick={handleTitleChange} />;
     return (
         <div className={ss.wrapper}>
-            <span>{title}</span>
+            <span className={ss.detailTitle}>{title}</span>
             <Dropdown placement="bottomCenter" overlay={menu}>
                 <Ellipsis />
             </Dropdown>
