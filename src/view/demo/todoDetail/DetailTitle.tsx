@@ -22,7 +22,7 @@ export function DetailTitle(props: IProps): JSX.Element {
         <div className={ss.wrapper}>
             <span className={ss.detailTitle}>{title}</span>
             <Dropdown placement="bottomCenter" overlay={menu}>
-                <Ellipsis />
+                <Ellipsis className={ss.ellipsisBtn}/>
             </Dropdown>
         </div>
     );
