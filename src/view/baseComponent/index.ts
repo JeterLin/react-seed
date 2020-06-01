@@ -9,5 +9,6 @@ export { Popover } from './Popover';
 export { Ellipsis } from './Icons/Ellipsis';
 export { ArrowLeft } from './Icons/ArrowLeft';
 export { Dropdown } from './Dropdown';
-export * from './menu/Menu';
-export * from './form/Form';
+export { RangePicker } from './DatePicker/RangePicker';
+export * from './Menu/Menu';
+export * from './Form/Form';
