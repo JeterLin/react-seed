@@ -10,6 +10,7 @@ module.exports = {
         '@assets': path.join(rootPath, '/src/assets'),
         '@styles': path.join(rootPath, '/src/styles'),
         '@utils': path.join(rootPath, '/src/utils'),
+        '@mw': path.join(rootPath, '/src/mw'),
     },
     extensions: ['.js', '.jsx', '.ts','.d.ts', '.tsx', '.json'],
     loaders: {
