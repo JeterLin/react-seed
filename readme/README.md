@@ -13,6 +13,8 @@
 
 ![分层逻辑结构介绍](./分层结构逻辑介绍.png)
 
+baseComponent、baseContainer、router、store、service、middleware的分别介绍未完待续 ...
+
 
 ## 构建打包配置说明
 构建打包工具是webpack，相关配置文件在 *buildConfig* 目录之中。配置信息就存在于`webpack.dev.config.js`、`webpack.prod.config.js` 和 `base.config.js` 之中。其中：
