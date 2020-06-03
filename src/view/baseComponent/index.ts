@@ -7,6 +7,7 @@ export { Switch } from './Switch';
 export { Spin } from './Spin';
 export { Popover } from './Popover';
 export { Ellipsis } from './Icons/Ellipsis';
+export { Loading } from './Icons/Loading';
 export { ArrowLeft } from './Icons/ArrowLeft';
 export { Dropdown } from './Dropdown';
 export { RangePicker } from './DatePicker/RangePicker';

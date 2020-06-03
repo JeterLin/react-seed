@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 export interface BaseRespType {
     code: number;
     data: any;
-    errMsg?: string;
+    msg?: string;
 }
 export type ServiceHandlerType = (payload?: object) => Promise<BaseRespType>;
 

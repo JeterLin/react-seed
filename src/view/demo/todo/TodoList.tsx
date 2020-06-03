@@ -9,14 +9,12 @@ import { ClearTodo, OnClearType } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
-import { StateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
+import { StateType as ToDoStateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
 import { RootStateType, AppDispatch } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<
-    {
-        todoList: Array<TodoItemType>;
-        loading: boolean;
-        addItem: Function;
+    ToDoStateType & {
+        addTodoItem: Function;
         clearItems: (clearDone?: boolean) => void;
         delItem: Function;
         toggleItem: (item: ToggleItemType) => void;
@@ -24,31 +22,32 @@ type PropsFromWrapper = Partial<
     } & IRouteChildrenProps
 >;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
+    const {addTodoItem, clearItems, delItem, toggleItem, history, fetchTodoList} = props;
     const handleAddTodo = useCallback((text) => {
-        props.addItem && props.addItem({ id: Date.now(), title: text });
+        addTodoItem && addTodoItem(text);
     }, []);
     const handleClearTodo = useCallback<OnClearType>((clearDone) => {
-        props.clearItems && props.clearItems(clearDone);
+        clearItems && clearItems(clearDone);
     }, []);
     const handleDelItem = useCallback((item) => {
-        props.delItem && props.delItem(item);
+        delItem && delItem(item);
     }, []);
     const handleToggleItem = useCallback((item, nextDone) => {
-        props.toggleItem && props.toggleItem({ ...item, done: nextDone });
+        toggleItem && toggleItem({ ...item, done: nextDone });
     }, []);
     const handleClickDetail = useCallback((item?: TodoItemType) => {
-        props.history && props.history.push(`/todo/detailView?id=${item ? item.id : ''}`);
+        history && history.push(`/todo/detailView?id=${item ? item.id : ''}`);
     }, []);
     // componentDidUpdate
     useEffect(() => {
-        props.fetchTodoList && props.fetchTodoList();
+        fetchTodoList && fetchTodoList();
     }, []);
     const isEmptyList = Array.isArray(props.todoList) && props.todoList.length === 0;
     return (
         <div className={ss.wrapper}>
             <List
                 bordered
-                loading={props.loading}
+                loading={props.listLoading}
                 emptyListPlaceholder
                 dataSource={props.todoList}
                 className={ss.listWrapper}
@@ -64,16 +63,16 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
             />
             <div className={ss.footer}>
                 {isEmptyList ? <span>Add item from here : </span> : null}
-                <AddTodo onSubmit={handleAddTodo} />
+                <AddTodo onSubmit={handleAddTodo} inputLoading={props.addLoading} />
                 {!isEmptyList ? <ClearTodo onClear={handleClearTodo} /> : null}
             </div>
         </div>
     );
 }
-
-const mapStateToProps: MapStateToProps<{ todoList: TodoItemType[]; loading: boolean } & IRouteChildrenProps, IRouteChildrenProps, RootStateType> = (rootState, ownProps) => {
+type NecessaryTodoState = Pick<ToDoStateType, 'todoList' | 'listLoading' | 'addLoading'> 
+const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps, IRouteChildrenProps, RootStateType> = (rootState, ownProps) => {
     const { todo } = rootState;
-    return { todoList: todo.todoList, loading: todo.loading, ...ownProps };
+    return { todoList: todo.todoList, listLoading: todo.listLoading, addLoading: todo.addLoading, ...ownProps };
 };
 // method 1:
 // const mapDispatchToProps: MapDispatchToProps<{ addItem: (todo: TodoItemType) => void }, {}> = (dispatch, ownProps) => ({

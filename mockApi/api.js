@@ -47,19 +47,20 @@ var apis = {
                     },
                 });
             }
-            return res.status(204).json({ code: -1, data: false , msg: 'content not found'});
+            return res.status(204).json({ code: -1, data: false, msg: 'content not found' });
         },
     },
     POST: {
         '/mockapi/todo/add': (req, res) => {
             if (req.body) {
-                const { id, title } = req.body;
-                if (id && title) {
+                const { title } = req.body;
+                if (title) {
+                    const id = Math.floor(Math.random() * 1e6);
                     todoList.push({ id, title });
                     todoDetails.push({ id, description: '', timeRange: [] });
                     return res.status(200).json({
                         code: 0,
-                        data: true,
+                        data: {id},
                     });
                 }
             }

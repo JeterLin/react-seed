@@ -7,22 +7,26 @@ function addItem(state: StateType, action: PayloadAction<TodoItemType>) {
 
 function initTodoList(state: StateType, action: PayloadAction<TodoItemType[]>) {
     state.todoList = action.payload;
-    state.loading = false;
+    state.listLoading = false;
 }
 
 const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
     const { data: todoList } = await todoService.listTodo();
     return todoList;
 });
+const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title) => {
+    const { data: okPayload } = await todoService.addTodo({ title });
+    return { id: okPayload.id, title };
+});
 
 const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
     initialState: {
         todoList: [],
-        loading: false,
+        listLoading: false,
+        addLoading: false,
     },
     reducers: {
-        addItem,
         clearItems(state, action: PayloadAction<boolean>) {
             if (action.payload) {
                 state.todoList = state.todoList.filter((item) => typeof item.done !== 'boolean' || !item.done);
@@ -45,14 +49,24 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     extraReducers: {
         [String(fetchTodoList.fulfilled)]: initTodoList,
         [String(fetchTodoList.pending)](state) {
-            state.loading = true;
+            state.listLoading = true;
         },
         [String(fetchTodoList.rejected)](state) {
-            state.loading = false;
+            state.listLoading = false;
+        },
+        [String(addTodoItem.pending)](state) {
+            state.addLoading = true;
+        },
+        [String(addTodoItem.fulfilled)](state, action: PayloadAction<{ id: string; title: string }>) {
+            state.addLoading = false;
+            state.todoList.push(action.payload);
+        },
+        [String(addTodoItem.rejected)](state) {
+            state.addLoading = false;
         },
     },
 });
 
 export default todoSlice.reducer;
-export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList });
+export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList , addTodoItem});
 export { TodoItemType, StateType, ToggleItemType };
