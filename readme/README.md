@@ -1,13 +1,22 @@
 # react-seed脚手架说明
 ## 项目代码结构
-![代码文件结构](./structure.jpg)
+![代码文件结构](./structure.png)
 
 ## 关键代码结构介绍
-这里是介绍...未完待续
+展示的代码划分结构之中，有几个关键重要的代码层：
+* 视图层view，对应目录view
+* 数据模型层store，对应目录store
+* 服务层service，对应目录service
+* 中间件层middleware，对应目录mw
+
+分层的逻辑逻辑如下图所示
+
+![分层逻辑结构介绍](./分层结构逻辑介绍.png)
+
 
 ## 构建打包配置说明
 构建打包工具是webpack，相关配置文件在 *buildConfig* 目录之中。配置信息就存在于`webpack.dev.config.js`、`webpack.prod.config.js` 和 `base.config.js` 之中。其中：
-* `base.config.js` 主要用于存放 `webpack.dev.config.js` 和 `webpack.prod.config.js`  的公共配置，只要修改了 `base.config.js` ，上述两个配置都会相应更新。上述两个文件的entry配置都在 `base.config.js` 之中，整个app的入口js文件是 *`src/index.js`*
+* `base.config.js` 主要用于存放 `webpack.dev.config.js` 和 `webpack.prod.config.js`  的公共配置，只要修改了 `base.config.js` ，上述两个配置都会相应更新。上述两个文件的entry配置都在 `base.config.js` 之中，整个app的入口js文件是 *`src/index.tsx`*
 * `webpack.dev.config.js` 主要包含一些在development模式下的相关配置（比如webpack-dev-server的配置），由 `npm run dev`  这个命令启动，webpack-dev-server使用 *`src/index.html`* 作为主页面。
 * `webpack.prod.config.js` 主要包含一些在production模式下的相关配置，由 `npm run build` 这个命令启动，并通过 `html-webpack-plugin` 读取 *`src/index.ejs`* 模板文件生成html文件作为主页面。
 
