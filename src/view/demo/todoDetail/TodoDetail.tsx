@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { IRouteChildrenProps } from '@router';
 import { ArrowLeft, Form, FormItem, Input, TextArea, Button, RangePicker } from '@view/baseComponent';
 
@@ -12,11 +12,13 @@ const FormTitle: FC<{ title: string }> = (props) => {
 function TodoDetail(props: IProps) {
     const labelCol = { span: 6 };
     const wrapperCol = { span: 14 };
-
+    const handleClickBackToList = useCallback(() => {
+        props.history.push('/todo');
+    }, []);
     return (
         <div className={ss.wrapper}>
             <header className={ss.header}>
-                <ArrowLeft />
+                <ArrowLeft onClick={handleClickBackToList} />
                 <DetailTitle />
             </header>
             <div className={ss.content}>
