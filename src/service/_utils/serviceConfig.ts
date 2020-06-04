@@ -9,7 +9,7 @@ enum ProtocolType {
 }
 
 interface IConfig {
-    host: String;
+    host: string;
     pathPrefix: PathPrefix;
     protocol: ProtocolType;
     port: number;
@@ -22,6 +22,6 @@ const config: IConfig = {
     port: 8080
 };
 
-export function makeUrl(serviceUrl: string = ''): string {
+export function makeUrl(serviceUrl = ''): string {
     return `/${config.pathPrefix}${serviceUrl}`;
 }

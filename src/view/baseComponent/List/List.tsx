@@ -7,7 +7,7 @@ type ExtPropTypes = Partial<{
     emptyListPlaceholder: JSX.Element | null | boolean;
 }>;
 
-export function List<ItemType extends object, PropTypes extends ListProps<ItemType> & ExtPropTypes>(props: PropTypes): JSX.Element | null {
+export function List<ItemType extends Record<string, unknown>, PropTypes extends ListProps<ItemType> & ExtPropTypes>(props: PropTypes): JSX.Element | null {
     const { emptyListPlaceholder, ...listProps } = props;
     if (emptyListPlaceholder) {
         if (Array.isArray(props.dataSource) && props.dataSource.length > 0) {

@@ -1,7 +1,7 @@
 import { configureStore, Reducer, combineReducers } from '@reduxjs/toolkit';
 import todo from './todoList';
 
-const customeReducer: Reducer<{}> = (state = {}, action) => state;
+const customeReducer: Reducer<Record<string, unknown>> = (state = {}) => state;
 const rootReducer = combineReducers({ todo, test: customeReducer });
 export default function setupStore() {
     const store = configureStore({

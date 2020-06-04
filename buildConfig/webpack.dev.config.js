@@ -54,6 +54,7 @@ module.exports = smp.wrap({
             },
             // 不在babel-loader的options添加preset和plugins相关配置，这些配置都存放在.babelrc中
             { test: /\.(ts|js)x?$/, loader: 'babel-loader', exclude: /node_modules/ },
+            { test: /\.(tsx?)|(jsx?)/, loader: 'eslint-loader', exclude: /node_modules/ },
             {
                 test: /\.(css|less)$/,
                 exclude: /node_modules/,

@@ -6,8 +6,10 @@ import ss from './demo.css';
 export default function Demo() {
     return <h2>Demo</h2>;
 }
-
-function LoadingThings(props) {
+interface LoadingThingsProps {
+    children: any
+};
+function LoadingThings(props:LoadingThingsProps) {
     return <h2>{props.children}</h2>;
 }
 // load the component after 2s
@@ -15,13 +17,13 @@ const lazyComponent = (p) => {
     if (p && typeof p.then === 'function') {
         return p
             .then(({ default: c }) => {
-                return new Promise((r, rj) => {
+                return new Promise((r) => {
                     setTimeout(() => {
                         r({ default: c });
                     }, 2e3);
                 });
             })
-            .catch((err) => 'error with loading component');
+            .catch(() => 'error with loading component');
     }
     throw 'argument type with lazyComponent must be Promise';
 };
