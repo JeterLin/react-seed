@@ -16,13 +16,13 @@ type PropsFromWrapper = Partial<
     ToDoStateType & {
         addTodoItem: Function;
         clearItems: (clearDone?: boolean) => void;
-        delItem: Function;
+        removeTodoItem: Function;
         toggleItem: (item: ToggleItemType) => void;
         fetchTodoList: () => void;
     } & IRouteChildrenProps
 >;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
-    const {addTodoItem, clearItems, delItem, toggleItem, history, fetchTodoList} = props;
+    const {addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList} = props;
     const handleAddTodo = useCallback((text) => {
         addTodoItem && addTodoItem(text);
     }, []);

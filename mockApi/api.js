@@ -11,14 +11,14 @@ function toApiConfig(apis) {
     }
     return result;
 }
-const todoList = [
+let todoList = [
     { id: 1, title: 'item 1' },
     { id: 2, title: 'item 2' },
     { id: 3, title: 'item 3' },
     { id: 4, title: 'item 4' },
 ];
 
-const todoDetails = [
+let todoDetails = [
     { id: 1, description: 'this is item 1', timeRange: [1591063516497, 1591063515497] },
     { id: 2, description: 'this is item 2', timeRange: [1591063515499, 1591063514499] },
     { id: 3, description: 'this is item 3', timeRange: [1591063514500, 1591063513500] },
@@ -60,7 +60,7 @@ var apis = {
                     todoDetails.push({ id, description: '', timeRange: [] });
                     return res.status(200).json({
                         code: 0,
-                        data: {id},
+                        data: { id },
                     });
                 }
             }
@@ -74,8 +74,11 @@ var apis = {
     // PUT: {},
     DELETE: {
         '/mockapi/todo/delete': (req, res) => {
-            const { id } = req.query;
-            if (id) {
+            const id = Number(req.query.id);
+            const idList = todoList.map((item) => item.id);
+            if (idList.includes(id) !== -1) {
+                todoList = todoList.filter((item) => item.id !== id);
+                todoDetails = todoDetails.filter((item) => item.id !== id);
                 return res.status(200).json({
                     code: 0,
                     data: true,

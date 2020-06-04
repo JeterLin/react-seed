@@ -1,9 +1,6 @@
 import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { todoService } from '@service/todoService/todo';
 import { TodoItemType, StateType, ToggleItemType } from './types';
-function addItem(state: StateType, action: PayloadAction<TodoItemType>) {
-    state.todoList.push(action.payload);
-}
 
 function initTodoList(state: StateType, action: PayloadAction<TodoItemType[]>) {
     state.todoList = action.payload;
@@ -18,7 +15,10 @@ const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title) => {
     const { data: okPayload } = await todoService.addTodo({ title });
     return { id: okPayload.id, title };
 });
-
+const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: TodoItemType) => {
+    await todoService.deleteTodo({ id: todoItem.id });
+    return { id: todoItem.id };
+});
 const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
     initialState: {
@@ -34,10 +34,10 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
                 state.todoList.splice(0, state.todoList.length);
             }
         },
-        delItem(state, action: PayloadAction<TodoItemType>) {
-            const { id } = action.payload;
-            state.todoList = state.todoList.filter((item) => item.id !== id);
-        },
+        // delItem(state, action: PayloadAction<TodoItemType>) {
+        //     const { id } = action.payload;
+        //     state.todoList = state.todoList.filter((item) => item.id !== id);
+        // },
         toggleItem(state, action: PayloadAction<ToggleItemType>) {
             const { id, done: nextDone } = action.payload;
             const [selectedItem] = state.todoList.filter((item) => item.id === id);
@@ -64,9 +64,19 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
         [String(addTodoItem.rejected)](state) {
             state.addLoading = false;
         },
+        [String(removeTodoItem.pending)](state) {
+            state.listLoading = true;
+        },
+        [String(removeTodoItem.fulfilled)](state, action: PayloadAction<{ id: string }>) {
+            state.listLoading = false;
+            state.todoList = state.todoList.filter((item) => item.id !== action.payload.id);
+        },
+        [String(removeTodoItem.rejected)](state) {
+            state.listLoading = false;
+        },
     },
 });
 
 export default todoSlice.reducer;
-export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList , addTodoItem});
+export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList, addTodoItem, removeTodoItem });
 export { TodoItemType, StateType, ToggleItemType };
