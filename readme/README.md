@@ -40,3 +40,10 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 ## 使用Lodash操作数据集
 
 未完待续...
+
+## Todo 
+* slice之中的reducers map类型定义抽取出来，并在view层调用mapStateToProps的时候使用
+* 响应的数据结构类型如何根据http接口文档定义生成
+* todo detail功能的完成
+* 配置eslint，并支持typescript类型校验
+* 配置redux middleware，实现全局提示框，实现清除/恢复默认某个state field
