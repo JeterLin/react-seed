@@ -34,10 +34,6 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
                 state.todoList.splice(0, state.todoList.length);
             }
         },
-        // delItem(state, action: PayloadAction<TodoItemType>) {
-        //     const { id } = action.payload;
-        //     state.todoList = state.todoList.filter((item) => item.id !== id);
-        // },
         toggleItem(state, action: PayloadAction<ToggleItemType>) {
             const { id, done: nextDone } = action.payload;
             const [selectedItem] = state.todoList.filter((item) => item.id === id);
