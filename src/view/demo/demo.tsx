@@ -8,7 +8,7 @@ export default function Demo() {
 }
 interface LoadingThingsProps {
     children: any
-};
+}
 function LoadingThings(props:LoadingThingsProps) {
     return <h2>{props.children}</h2>;
 }

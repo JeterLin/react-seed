@@ -1,5 +1,5 @@
 import React from 'react';
 
-export function DefaultEmptyList() {
+export function DefaultEmptyList(): JSX.Element | null {
     return null;
 }

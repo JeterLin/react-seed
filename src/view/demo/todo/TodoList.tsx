@@ -14,15 +14,15 @@ import { RootStateType, AppDispatch } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<
     ToDoStateType & {
-        addTodoItem: Function;
+        addTodoItem: (text: string) => void;
         clearItems: (clearDone?: boolean) => void;
-        removeTodoItem: Function;
+        removeTodoItem: (item: TodoItemType) => void;
         toggleItem: (item: ToggleItemType) => void;
         fetchTodoList: () => void;
     } & IRouteChildrenProps
 >;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
-    const {addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList} = props;
+    const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList } = props;
     const handleAddTodo = useCallback((text) => {
         addTodoItem && addTodoItem(text);
     }, []);
@@ -69,7 +69,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
         </div>
     );
 }
-type NecessaryTodoState = Pick<ToDoStateType, 'todoList' | 'listLoading' | 'addLoading'> 
+type NecessaryTodoState = Pick<ToDoStateType, 'todoList' | 'listLoading' | 'addLoading'>;
 const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps, IRouteChildrenProps, RootStateType> = (rootState, ownProps) => {
     const { todo } = rootState;
     return { todoList: todo.todoList, listLoading: todo.listLoading, addLoading: todo.addLoading, ...ownProps };
