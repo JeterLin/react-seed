@@ -49,3 +49,4 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 * 配置redux middleware，实现全局提示框，实现清除/恢复默认某个state field
 * 编写普通redux reducer的处理过程，并在readme之中给出相应的说明
 * 完成todo detail的功能，detail update & todo update log 
+* 添加postcss
