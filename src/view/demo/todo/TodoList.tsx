@@ -10,7 +10,8 @@ import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
 import { StateType as ToDoStateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
-import { RootStateType } from '@store';
+import { actions as todoDetailActions } from '@store/todoDetail';
+import { IRootState } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<
     ToDoStateType & {
@@ -19,10 +20,11 @@ type PropsFromWrapper = Partial<
         removeTodoItem: (item: TodoItemType) => void;
         toggleItem: (item: ToggleItemType) => void;
         fetchTodoList: () => void;
-    } & IRouteChildrenProps
+    } & IRouteChildrenProps &
+        Pick<typeof todoDetailActions, 'todoTitleChange'>
 >;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
-    const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList } = props;
+    const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList, todoTitleChange } = props;
     const handleAddTodo = useCallback((text) => {
         addTodoItem && addTodoItem(text);
     }, []);
@@ -37,6 +39,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     }, []);
     const handleClickDetail = useCallback((item?: TodoItemType) => {
         history && history.push(`/todo/detailView?id=${item ? item.id : ''}`);
+        todoTitleChange && todoTitleChange(item?.title);
     }, []);
     // componentDidUpdate
     useEffect(() => {
@@ -70,7 +73,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     );
 }
 type NecessaryTodoState = Pick<ToDoStateType, 'todoList' | 'listLoading' | 'addLoading'>;
-const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps, IRouteChildrenProps, RootStateType> = (rootState, ownProps) => {
+const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps, IRouteChildrenProps, IRootState> = (rootState, ownProps) => {
     const { todo } = rootState;
     return { todoList: todo.todoList, listLoading: todo.listLoading, addLoading: todo.addLoading, ...ownProps };
 };
@@ -82,5 +85,6 @@ const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps,
 // });
 // const TodoListWrapper = connect(mapStateToProps, mapDispatchToProps)(TodoList);
 // method 2:
-const TodoListWrapper = connect(mapStateToProps, todoActions)(TodoList);
+// 使用react-redux的connect方法，连接绑定视图层与store层的数据
+const TodoListWrapper = connect(mapStateToProps, { ...todoActions, todoTitleChange: todoDetailActions.todoTitleChange })(TodoList);
 export { TodoListWrapper as default };
