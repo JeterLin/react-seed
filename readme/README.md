@@ -32,6 +32,11 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 ## reduxjs-toolkit：基于reduxjs的数据状态库介绍
 [`reduxjs`](https://redux.js.org/introduction/getting-started)是一个数据状态管理库，它可以作为视图层组件的外置状态库，进行跨组件通讯。而redux toolkit则是集合了redux及其优秀开源中间件形成的一个基于redux的增强工具包，并且优化了为`reduxjs`编写`action creator`和`reducer`的编程体验。这些中间件包括[`immer`](https://github.com/immerjs/immer)，[`redux-thunk`](https://github.com/reduxjs/redux-thunk)。
 
+> ## redux数据流
+未完待续
+> ## 与redux-toolkit区别
+未完待续`
+
 ## 使用typescript编写react组件
 
 这里是参考了[文章一](https://github.com/piotrwitek/react-redux-typescript-guide#react---type-definitions-cheatsheet)，[文章二](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet)之后的一些总结如下：
