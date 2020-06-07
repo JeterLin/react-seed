@@ -49,3 +49,4 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 * 编写普通redux reducer的处理过程，并在readme之中给出相应的说明
 * 完成todo detail的功能，detail update & todo update log 
 * 添加postcss
+* 删除makeurl
