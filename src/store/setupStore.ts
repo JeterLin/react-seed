@@ -3,7 +3,7 @@ import todo from './todoList';
 
 const customeReducer: Reducer<Record<string, unknown>> = (state = {}) => state;
 const rootReducer = combineReducers({ todo, test: customeReducer });
-export default function setupStore() {
+export default function setupStore(): typeof store {
     const store = configureStore({
         reducer: rootReducer,
     });

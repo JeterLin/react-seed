@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Checkbox } from '@view/baseComponent';
 import { TodoItemType } from '@store/todoList';
 import cn from 'classnames';

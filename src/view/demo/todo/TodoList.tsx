@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
+import { connect, MapStateToProps } from 'react-redux';
 import { List, ListItem } from '@view/baseComponent';
 import { IRouteChildrenProps } from '@router';
 
@@ -10,7 +10,7 @@ import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
 import { StateType as ToDoStateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
-import { RootStateType, AppDispatch } from '@store';
+import { RootStateType } from '@store';
 import ss from './TodoList.less';
 type PropsFromWrapper = Partial<
     ToDoStateType & {

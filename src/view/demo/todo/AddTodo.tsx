@@ -10,7 +10,7 @@ export function AddTodo(props: IProps): JSX.Element {
     const [text, setText] = useState<string>('');
     const { inputLoading, onSubmit } = props;
     const handleSubmit = useCallback(
-        (e) => {
+        () => {
             onSubmit && onSubmit(text);
             setText('');
         },

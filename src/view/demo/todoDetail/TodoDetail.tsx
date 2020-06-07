@@ -10,7 +10,7 @@ type IProps = IRouteChildrenProps;
 const FormTitle: FC<{ title: string }> = (props) => {
     return <span className={ss.labelText}>{props.title}</span>;
 };
-function TodoDetail(props: IProps) {
+function TodoDetail(props: IProps): JSX.Element {
     const labelCol = { span: 6 };
     const wrapperCol = { span: 14 };
     const handleClickBackToList = useCallback(() => {

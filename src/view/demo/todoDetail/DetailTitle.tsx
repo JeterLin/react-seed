@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Dropdown, Ellipsis, Menu, ItemConfig } from '@view/baseComponent';
 
 import ss from './DetailTitle.less';
@@ -11,7 +11,7 @@ const MenuItemsConfig: ItemConfig[] = [
 interface IProps {
     onTitleChange?: (nextTitle: string) => void;
 }
-
+// eslint-disable-next-line
 export function DetailTitle(props: IProps): JSX.Element {
     const [title, setTitle] = useState<string>(MenuItemsConfig[0].title);
     const handleTitleChange = useCallback((params) => {
