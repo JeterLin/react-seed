@@ -42,11 +42,11 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 未完待续...
 
 ## Todo 
-* slice之中的reducers map类型定义抽取出来，并在view层调用mapStateToProps的时候使用
-* 响应的数据结构类型如何根据http接口文档定义生成
-* 配置eslint，并支持typescript类型校验
-* 配置redux middleware，实现全局提示框，实现清除/恢复默认某个state field
-* 编写普通redux reducer的处理过程，并在readme之中给出相应的说明
-* 完成todo detail的功能，detail update & todo update log 
-* 添加postcss
-* 删除makeurl
+* 可以考虑slice之中的reducers map类型定义抽取出来，并在view层调用mapStateToProps的时候使用 (*optional*)
+* 可以考虑响应的数据结构类型如何根据http接口文档定义生成 (*optional*)
+* <del>配置eslint，并支持typescript类型校验</del> (*required*)
+* 配置redux middleware，实现全局提示框，实现清除/恢复默认某个state field (*required*)
+* 编写普通redux reducer的处理过程，并在readme之中给出相应的说明 (*required*)
+* 完成todo detail的功能，detail update & todo update log (*required*)
+* 添加postcss (*required*)
+* 删除makeurl (*required*)
