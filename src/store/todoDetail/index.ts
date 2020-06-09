@@ -37,8 +37,8 @@ const todoDateChange: ActionCreator<IDateChangeAction> = (payload: IDatePayload 
 const initState: ITodoDetailState = {
     title: '',
     description: '',
-    startDate: 0,
-    endDate: 0,
+    startDate: Date.now(),
+    endDate: Date.now(),
 };
 // reducers
 const todoDetail: Reducer<ITodoDetailState, Action<PayloadAction<any>>> = (state = initState, action) => {
