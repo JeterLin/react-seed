@@ -11,8 +11,9 @@ const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
     const { data: todoList } = await todoService.listTodo();
     return todoList;
 });
-const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title) => {
+const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title, thunkApi) => {
     const { data: okPayload } = await todoService.addTodo({ title });
+    thunkApi.dispatch({type: 'serv/success',payload: {title: '创建成功', msg: '添加待办成功'}});
     return { id: okPayload.id, title };
 });
 const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: TodoItemType, thunkApi) => {
