@@ -16,10 +16,10 @@ const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title) => {
     return { id: okPayload.id, title };
 });
 const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: TodoItemType, thunkApi) => {
-    await todoService.deleteTodo({ id: '-1' }).catch((data) => {
-        thunkApi.dispatch({ type: 'serv/error', payload: {title: '删除失败', msg: data.msg} });
+    await todoService.deleteTodo({ id: todoItem.id }).catch((data) => {
+        thunkApi.dispatch({ type: 'serv/error', payload: { title: '删除失败', msg: data.msg } });
     });
-    return { id: '-1' };
+    return { id: todoItem.id };
 });
 const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
     name: 'todoApp',
