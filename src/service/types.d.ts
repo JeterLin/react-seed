@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 export interface BaseRespType {
     code: number;
     data: any;
     msg?: string;
 }
+export type AxiosErrorType = AxiosError<BaseRespType>;
 export type CommonMapType = Record<string, unknown>;
 export type ServiceHandlerType = (payload?: CommonMapType) => Promise<BaseRespType>;
 
