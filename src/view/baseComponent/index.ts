@@ -13,3 +13,4 @@ export { Dropdown } from './Dropdown';
 export { RangePicker } from './DatePicker/RangePicker';
 export * from './Menu/Menu';
 export * from './Form/Form';
+export * from './globalAlert';
