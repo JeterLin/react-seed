@@ -9,7 +9,7 @@ export const serviceAlert: Middleware = () => (nextDispatch: Dispatch<IAction>) 
     if (action.type === ALERT_SUCCESS) {
         const { msg, title } = action.payload;
         success({ title, content: msg });
-        return ;
+        return;
     }
     if (action.type === ALERT_ERROR) {
         const { msg, title } = action.payload;
