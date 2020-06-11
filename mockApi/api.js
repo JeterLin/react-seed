@@ -76,7 +76,7 @@ var apis = {
         '/mockapi/todo/delete': (req, res) => {
             const id = Number(req.query.id);
             const idList = todoList.map((item) => item.id);
-            if (idList.includes(id) !== -1) {
+            if (idList.indexOf(id) !== -1) {
                 todoList = todoList.filter((item) => item.id !== id);
                 todoDetails = todoDetails.filter((item) => item.id !== id);
                 return res.status(200).json({
