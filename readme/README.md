@@ -35,7 +35,11 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 > ## redux数据流
 ![redux数据流](./redux数据流.png)
 > ## 与redux-toolkit区别
-未完待续`
+按照redux-toolkit[官网](https://redux-toolkit.js.org/introduction/quick-start)的介绍，redux-toolkit提供了一个编写redux逻辑的标准方式，解决了一些redux存在的痛点：
+* 复杂的redux配置
+* 需要为redux添加许多第三方包才可以使用redux
+* 编写redux逻辑会产生大量重复冗余代码
+> ## react-redux的作用
 
 ## 使用typescript编写react组件
 
@@ -51,8 +55,8 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 * 可以考虑响应的数据结构类型如何根据http接口文档定义生成 (*optional*)
 * 集成storybook (*optional*)
 * <del>配置eslint，并支持typescript类型校验</del> (*required*)
-* 配置redux middleware，实现全局提示框，实现清除/恢复默认某个state field (*required*)
-* 编写普通redux reducer的处理过程，并在readme之中给出相应的说明 (*required*)
+* 配置redux middleware，实现全局提示框，实现在切换路由（path，query，hash）恢复默认某个state field (*required*)
+* <del>编写普通redux reducer的处理过程，并在readme之中给出相应的说明 </del>(*required*)
 * 完成todo detail的功能，detail update & todo update log (*required*)
 * 添加postcss (*required*)
 * 删除makeurl (*required*)
