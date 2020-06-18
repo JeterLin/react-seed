@@ -1,12 +1,12 @@
 import { configureStore, Reducer, combineReducers , getDefaultMiddleware} from '@reduxjs/toolkit';
 import {values} from 'lodash';
 // reducers
-import * as mainReducers from './mainReducers';
+import  {reducersMap} from './mainReducers';
 // middlewares
 import * as middlewares from '@mw';
 
 const customeReducer: Reducer<Record<string, unknown>> = (state = {}) => state;
-const rootReducer = combineReducers({ test: customeReducer, ...mainReducers });
+const rootReducer = combineReducers({ test: customeReducer, ...reducersMap });
 export default function setupStore(): typeof store {
     const store = configureStore({
         reducer: rootReducer,
