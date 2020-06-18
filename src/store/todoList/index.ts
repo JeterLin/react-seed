@@ -1,8 +1,8 @@
-import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { todoService } from '@service/todoService/todo';
-import { TodoItemType, StateType, ToggleItemType } from './types';
+import { TodoItemType, ITodoState, ToggleItemType } from './types';
 
-function initTodoList(state: StateType, action: PayloadAction<TodoItemType[]>) {
+function initTodoList(state: ITodoState, action: PayloadAction<TodoItemType[]>) {
     state.todoList = action.payload;
     state.listLoading = false;
 }
@@ -13,7 +13,7 @@ const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
 });
 const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title, thunkApi) => {
     const { data: okPayload } = await todoService.addTodo({ title });
-    thunkApi.dispatch({type: 'serv/success',payload: {title: '创建成功', msg: '添加待办成功'}});
+    thunkApi.dispatch({ type: 'serv/success', payload: { title: '创建成功', msg: '添加待办成功' } });
     return { id: okPayload.id, title };
 });
 const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: TodoItemType, thunkApi) => {
@@ -22,7 +22,9 @@ const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: T
     });
     return { id: todoItem.id };
 });
-const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
+const resetState = createAction('todoApp/reset-state');
+// const
+const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
     name: 'todoApp',
     initialState: {
         todoList: [],
@@ -43,6 +45,13 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
             if (selectedItem) {
                 selectedItem.done = nextDone;
             }
+        },
+        [resetState.type]() {
+            return {
+                todoList: [],
+                listLoading: false,
+                addLoading: false,
+            };
         },
     },
     extraReducers: {
@@ -78,4 +87,4 @@ const todoSlice = createSlice<StateType, SliceCaseReducers<StateType>>({
 
 export default todoSlice.reducer;
 export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList, addTodoItem, removeTodoItem });
-export { TodoItemType, StateType, ToggleItemType };
+export { TodoItemType, ITodoState as StateType, ToggleItemType };
