@@ -1,3 +1,4 @@
-import store from './setupStore';
+import setupStore from './setupStore';
+// 导出`StoreType`,`AppDispatch`,`IRootState`三种类型定义
 export * from './setupStore';
-export { store as default };
+export { setupStore as default };
