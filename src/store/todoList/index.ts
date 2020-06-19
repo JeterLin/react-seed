@@ -11,7 +11,7 @@ const fetchTodoList = createAsyncThunk('todoApp/fetchTodoList', async () => {
     const { data: todoList } = await todoService.listTodo();
     return todoList;
 });
-const addTodoItem = createAsyncThunk('todoApp/addTodo', async (title, thunkApi) => {
+const addTodoItem = createAsyncThunk<{ id: string; title: string }, string>('todoApp/addTodo', async (title, thunkApi) => {
     const { data: okPayload } = await todoService.addTodo({ title });
     thunkApi.dispatch({ type: 'serv/success', payload: { title: '创建成功', msg: '添加待办成功' } });
     return { id: okPayload.id, title };
@@ -27,7 +27,7 @@ const initialState: ITodoState = {
     listLoading: false,
     addLoading: false,
 };
-const resetState = createAction('todoApp/resetState');
+const resetTodoList = createAction('todoApp/resetList');
 const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
     name: 'todoApp',
     initialState,
@@ -46,8 +46,8 @@ const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
                 selectedItem.done = nextDone;
             }
         },
-        [resetState.type]() {
-            return initialState;
+        resetList(state) {
+            state.todoList = initialState.todoList;
         },
     },
     extraReducers: {
@@ -82,5 +82,5 @@ const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
 });
 
 export default todoSlice.reducer;
-export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList, addTodoItem, removeTodoItem });
+export const actions = Object.assign({}, todoSlice.actions, { fetchTodoList, addTodoItem, removeTodoItem, resetTodoList });
 export { TodoItemType, ITodoState as StateType, ToggleItemType };

@@ -9,27 +9,22 @@ import { ClearTodo, OnClearType } from './ClearTodo';
 import { DeleteTodo } from './DeleteTodo';
 import { DetailTodo } from './DetailTodo';
 import { BtnGroup } from './BtnGroup';
-import { StateType as ToDoStateType, TodoItemType, ToggleItemType, actions as todoActions } from '@store/todoList';
+import { StateType as ToDoStateType, TodoItemType, actions as todoActions } from '@store/todoList';
 import { actions as todoDetailActions } from '@store/todoDetail';
 import { IRootState } from '@store';
 import ss from './TodoList.less';
-type PropsFromWrapper = Partial<
-    ToDoStateType & {
-        addTodoItem: (text: string) => void;
-        clearItems: (clearDone?: boolean) => void;
-        removeTodoItem: (item: TodoItemType) => void;
-        toggleItem: (item: ToggleItemType) => void;
-        fetchTodoList: () => void;
-    } & IRouteChildrenProps &
-        Pick<typeof todoDetailActions, 'todoTitleChange'>
->;
+type PropsFromWrapper = Partial<ToDoStateType & typeof todoActions & IRouteChildrenProps & Pick<typeof todoDetailActions, 'todoTitleChange'>>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
-    const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList, todoTitleChange } = props;
+    const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList, todoTitleChange, resetTodoList } = props;
     const handleAddTodo = useCallback((text) => {
         addTodoItem && addTodoItem(text);
     }, []);
     const handleClearTodo = useCallback<OnClearType>((clearDone) => {
-        clearItems && clearItems(clearDone);
+        if (clearDone) {
+            clearItems && clearItems(clearDone);
+        } else {
+            resetTodoList && resetTodoList();
+        }
     }, []);
     const handleDelItem = useCallback((item) => {
         delItem && delItem(item);
