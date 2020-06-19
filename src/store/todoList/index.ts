@@ -22,15 +22,15 @@ const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: T
     });
     return { id: todoItem.id };
 });
-const resetState = createAction('todoApp/reset-state');
-// const
+const initialState: ITodoState = {
+    todoList: [],
+    listLoading: false,
+    addLoading: false,
+};
+const resetState = createAction('todoApp/resetState');
 const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
     name: 'todoApp',
-    initialState: {
-        todoList: [],
-        listLoading: false,
-        addLoading: false,
-    },
+    initialState,
     reducers: {
         clearItems(state, action: PayloadAction<boolean>) {
             if (action.payload) {
@@ -47,39 +47,35 @@ const todoSlice = createSlice<ITodoState, SliceCaseReducers<ITodoState>>({
             }
         },
         [resetState.type]() {
-            return {
-                todoList: [],
-                listLoading: false,
-                addLoading: false,
-            };
+            return initialState;
         },
     },
     extraReducers: {
-        [String(fetchTodoList.fulfilled)]: initTodoList,
-        [String(fetchTodoList.pending)](state) {
+        [fetchTodoList.fulfilled.type]: initTodoList,
+        [fetchTodoList.pending.type](state) {
             state.listLoading = true;
         },
-        [String(fetchTodoList.rejected)](state) {
+        [fetchTodoList.rejected.type](state) {
             state.listLoading = false;
         },
-        [String(addTodoItem.pending)](state) {
+        [addTodoItem.pending.type](state) {
             state.addLoading = true;
         },
-        [String(addTodoItem.fulfilled)](state, action: PayloadAction<{ id: string; title: string }>) {
+        [addTodoItem.fulfilled.type](state, action: PayloadAction<{ id: string; title: string }>) {
             state.addLoading = false;
             state.todoList.push(action.payload);
         },
-        [String(addTodoItem.rejected)](state) {
+        [addTodoItem.rejected.type](state) {
             state.addLoading = false;
         },
-        [String(removeTodoItem.pending)](state) {
+        [removeTodoItem.pending.type](state) {
             state.listLoading = true;
         },
-        [String(removeTodoItem.fulfilled)](state, action: PayloadAction<{ id: string }>) {
+        [removeTodoItem.fulfilled.type](state, action: PayloadAction<{ id: string }>) {
             state.listLoading = false;
             state.todoList = state.todoList.filter((item) => item.id !== action.payload.id);
         },
-        [String(removeTodoItem.rejected)](state) {
+        [removeTodoItem.rejected.type](state) {
             state.listLoading = false;
         },
     },
