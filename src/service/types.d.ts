@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse, AxiosError } from 'axios';
+
+export enum RES_CODE {
+    SUCCESS = 0,
+    ERROR = 1
+}
 export interface BaseRespType {
-    code: number;
+    code: RES_CODE;
     data: any;
     msg?: string;
 }
