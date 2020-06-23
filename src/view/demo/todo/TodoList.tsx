@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect, MapStateToProps } from 'react-redux';
+import {Modal} from 'antd';
 import { List, ListItem } from '@view/baseComponent';
 import { IRouteChildrenProps } from '@router';
 
@@ -27,7 +28,8 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
         }
     }, []);
     const handleDelItem = useCallback((item) => {
-        delItem && delItem(item);
+        // delItem && delItem(item);
+        Modal.error({title: '测试删除失败',content: '测试删除失败 '});
     }, []);
     const handleToggleItem = useCallback((item, nextDone) => {
         toggleItem && toggleItem({ ...item, done: nextDone });
@@ -51,11 +53,13 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
                 className={ss.listWrapper}
                 renderItem={(item) => (
                     <ListItem>
-                        <TodoItem item={item} onToggleTodo={handleToggleItem} />
-                        <BtnGroup>
-                            <DetailTodo item={item} onDetail={handleClickDetail} />
-                            <DeleteTodo onDelete={handleDelItem} item={item} />
-                        </BtnGroup>
+                        <div className={ss.listItemWrapper}>
+                            <TodoItem item={item} onToggleTodo={handleToggleItem} />
+                            <BtnGroup>
+                                <DetailTodo item={item} onDetail={handleClickDetail} />
+                                <DeleteTodo onDelete={handleDelItem} item={item} />
+                            </BtnGroup>
+                        </div>
                     </ListItem>
                 )}
             />

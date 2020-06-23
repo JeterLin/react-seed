@@ -2,12 +2,14 @@
 .btnGroup {
     position: absolute;
     width: 2 * @btnWidth;
-    left: 0;
-    margin-left: 100%;
-    transition: margin-left ease-in-out 0.2s;
+    right: -2 * @btnWidth;
+    top: 0;
+    // margin-left: 100%;
+    transition: right ease-in-out 0.2s;
 }
 :global(.ant-list-item) {
     &:hover .btnGroup {
-        margin-left: calc(100% - 2 * @btnWidth);
+        // margin-left: calc(100% - 2 * @btnWidth);
+        right: 0;
     }
 }
