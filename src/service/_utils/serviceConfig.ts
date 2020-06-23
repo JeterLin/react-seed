@@ -15,13 +15,10 @@ interface IConfig {
     port: number;
 }
 
-const config: IConfig = {
+export const config: IConfig = {
     host: window.location.hostname,
     pathPrefix: process.env.NODE_ENV === 'development' ? PathPrefix.MOCKAPI : PathPrefix.API,
     protocol: process.env.NODE_ENV === 'development' ? ProtocolType.HTTP : ProtocolType.HTTPS,
     port: 8080
 };
 
-export function makeUrl(serviceUrl = ''): string {
-    return `/${config.pathPrefix}${serviceUrl}`;
-}
