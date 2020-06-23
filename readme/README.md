@@ -56,9 +56,10 @@ baseComponent、baseContainer、router、store、service、middleware的分别�
 * 可以考虑slice之中的reducers map类型定义抽取出来，并在view层调用mapStateToProps的时候使用 (*optional*)
 * 可以考虑响应的数据结构类型如何根据http接口文档定义生成 (*optional*)
 * 集成storybook (*optional*)
-* <del>配置eslint，并支持typescript类型校验</del> (*required*)
+* <del>配置eslint，并支持typescript类型校验 (*required*)</del>
 * 配置redux middleware，实现全局提示框，实现在切换路由（path，query，hash）恢复默认某个state field (*required*)
-* <del>编写普通redux reducer的处理过程，并在readme之中给出相应的说明 </del>(*required*)
+* <del>编写普通redux reducer的处理过程，并在readme之中给出相应的说明 (*required*)</del>
 * 完成todo detail的功能，detail update & todo update log (*required*)
 * 添加postcss (*required*)
-* 删除makeurl (*required*)
+* <del>删除makeurl (*required*)</del>
+* 添加可结构化配置的route, 设计可嵌套路由配置 参考 [`vue-router`](https://router.vuejs.org/zh/guide/essentials/nested-routes.html)
