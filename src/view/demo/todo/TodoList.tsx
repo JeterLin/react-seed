@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect, MapStateToProps } from 'react-redux';
-import {Modal} from 'antd';
 import { List, ListItem } from '@view/baseComponent';
 import { IRouteChildrenProps } from '@router';
 
@@ -28,8 +27,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
         }
     }, []);
     const handleDelItem = useCallback((item) => {
-        // delItem && delItem(item);
-        Modal.error({title: '测试删除失败',content: '测试删除失败 '});
+        delItem && delItem(item);
     }, []);
     const handleToggleItem = useCallback((item, nextDone) => {
         toggleItem && toggleItem({ ...item, done: nextDone });
