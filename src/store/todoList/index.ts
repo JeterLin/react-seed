@@ -1,5 +1,5 @@
 import { createSlice, SliceCaseReducers, PayloadAction, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { todoService } from '@service/todoService/todo';
+import { todoService} from '@service';
 import { TodoItemType, ITodoState, ToggleItemType } from './types';
 
 function initTodoList(state: ITodoState, action: PayloadAction<TodoItemType[]>) {
@@ -17,10 +17,15 @@ const addTodoItem = createAsyncThunk<{ id: string; title: string }, string>('tod
     return { id: okPayload.id, title };
 });
 const removeTodoItem = createAsyncThunk('todoApp/removeTodo', async (todoItem: TodoItemType, thunkApi) => {
-    await todoService.deleteTodo({ id: todoItem.id }).catch((data) => {
-        thunkApi.dispatch({ type: 'serv/error', payload: { title: '删除失败', msg: data.msg } });
-    });
-    return { id: todoItem.id };
+    return todoService
+        .deleteTodo({ id: todoItem.id })
+        .then(() => {
+            return Promise.resolve({ id: todoItem.id });
+        })
+        .catch((data) => {
+            thunkApi.dispatch({ type: 'serv/error', payload: { title: '删除失败', msg: data.msg } });
+            return data;
+        });
 });
 const initialState: ITodoState = {
     todoList: [],
