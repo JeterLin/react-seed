@@ -12,13 +12,13 @@ interface IConfig {
     host: string;
     pathPrefix: PathPrefix;
     protocol: ProtocolType;
-    port: number;
+    port: string;
 }
 
 export const config: IConfig = {
     host: window.location.hostname,
     pathPrefix: process.env.NODE_ENV === 'development' ? PathPrefix.MOCKAPI : PathPrefix.API,
     protocol: process.env.NODE_ENV === 'development' ? ProtocolType.HTTP : ProtocolType.HTTPS,
-    port: 8080
+    port: location.port
 };
 
