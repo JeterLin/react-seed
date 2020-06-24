@@ -1,1 +1,12 @@
 @btnWidth: 80px;
+.btnGroupItemLayout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.iconHoverColor(@color: #1890ff){
+    &:hover {
+        color: @color;
+        cursor: pointer;
+    }
+}
