@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Button } from '@view/baseComponent';
 import { TodoItemType } from '@store/todoList';
+import {FormEdit} from '@view/baseComponent';
 
 import ss from './DetailTodo.less';
 
@@ -8,8 +9,11 @@ type IProps = Partial<{ onDetail: (item?: TodoItemType ) => void; item: TodoItem
 export function DetailTodo(props: IProps): JSX.Element | null {
     const handleClick = useCallback(() => props.onDetail && props.onDetail(props.item), [props.item]);
     return (
-        <Button onClick={handleClick} className={ss.detailBtn} type="primary">
-            Detail
-        </Button>
+        // <Button onClick={handleClick} className={ss.detailBtn} type="primary">
+        //     Detail
+        // </Button>
+        <div className={ss.detailBtn} onClick={handleClick}>
+            <FormEdit className={ss.icon}/>
+        </div>
     );
 }

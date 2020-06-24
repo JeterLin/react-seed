@@ -1,15 +1,16 @@
 @import 'variables.less';
 .btnGroup {
     position: absolute;
-    width: 2 * @btnWidth;
-    right: -2 * @btnWidth;
+    width: @btnWidth;
+    height: 100%;
+    right: 20px;
     top: 0;
     // margin-left: 100%;
-    transition: right ease-in-out 0.2s;
+    opacity: 0;
+    transition: opacity ease-in-out 0.4s;
 }
 :global(.ant-list-item) {
     &:hover .btnGroup {
-        // margin-left: calc(100% - 2 * @btnWidth);
-        right: 0;
+        opacity: 1;
     }
 }
