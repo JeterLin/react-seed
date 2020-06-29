@@ -14,11 +14,21 @@
 ![分层逻辑结构介绍](./分层结构逻辑介绍.png)
 
 baseComponent、baseContainer、router、store、service、middleware的分别介绍未完待续 ...
-> view层往下划分了baseComponent、baseContainer、router、具体业务组件这几个层次，分别对应相关的文件夹，其中：
+
+view层往下划分了baseComponent、baseContainer、router、具体业务组件这几个层次，分别对应相关的文件夹，其中：
 * baseComponent主要统一存放基础组件，基础组件包括第三方组件、基于第三方组件的定制组件，方便在baseComponent文件夹之中对组件接口统一定义，样式统一处理
 * baseContainer主要存放通用的基础布局组件，统一布局处理
 * router主要存放路由组件及基于基础路由组件的定制路由组件
 * 其他业务组件主要存放业务相关的UI组件
+  
+store层也就是数据模型层，相关业务代码存放在store文件夹下，业务代码主要包括：
+* 存放业务数据、业务组件状态
+* 对接service层
+* 定义action creator, action creator实现相关业务逻辑并发出action type，触发相关reducer更新数据和状态
+
+service层主要处理数据接口调用及配置，代码主要存放在service文件夹下
+
+middleware层可以针对某一类的action type执行某些全局逻辑，比如接口统一报错以后展示全局弹窗，统一打印业务日志 
 
 
 ## 构建打包配置说明
