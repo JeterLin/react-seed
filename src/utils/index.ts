@@ -1,1 +1,2 @@
-export {arrayNotEmpty} from './arrayNotEmpty';
+export { arrayNotEmpty } from './arrayNotEmpty';
+export { DefDispatchProps } from './typeUtils';

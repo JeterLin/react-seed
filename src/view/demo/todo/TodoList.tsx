@@ -12,8 +12,9 @@ import { BtnGroup } from './BtnGroup';
 import { StateType as ToDoStateType, TodoItemType, actions as todoActions } from '@store/todoList';
 import { actions as todoDetailActions } from '@store/todoDetail';
 import { IRootState } from '@store';
+import { DefDispatchProps } from '@utils';
 import ss from './TodoList.less';
-type PropsFromWrapper = Partial<ToDoStateType & typeof todoActions & IRouteChildrenProps & Pick<typeof todoDetailActions, 'todoTitleChange'>>;
+type PropsFromWrapper = Partial<ToDoStateType & DefDispatchProps<typeof todoActions> & IRouteChildrenProps & Pick<typeof todoDetailActions, 'todoTitleChange'>>;
 function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
     const { addTodoItem, clearItems, removeTodoItem: delItem, toggleItem, history, fetchTodoList, todoTitleChange, resetTodoList } = props;
     const handleAddTodo = useCallback((text) => {
