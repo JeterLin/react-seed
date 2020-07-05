@@ -63,11 +63,13 @@ module.exports = smp.wrap({
                     {
                         loader: 'css-loader',
                         options: {
+                            importLoaders: 1,
                             modules: {
                                 localIdentName: '[path][name]__[local]--[hash:base64:5]',
                             },
                         },
                     },
+                    baseLoadersConfig.postCssLoader,
                     baseLoadersConfig.lessLoader,
                 ],
             },

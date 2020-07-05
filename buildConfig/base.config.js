@@ -19,6 +19,7 @@ module.exports = {
             loader: 'file-loader',
         },
         lessLoader: 'less-loader',
+        postCssLoader: 'postcss-loader'
     },
     entry: {
         app: [
