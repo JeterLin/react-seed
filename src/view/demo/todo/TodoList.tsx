@@ -73,7 +73,7 @@ function TodoList<PropTypes extends PropsFromWrapper>(props: PropTypes) {
 type NecessaryTodoState = Pick<ToDoStateType, 'todoList' | 'listLoading' | 'addLoading'>;
 const mapStateToProps: MapStateToProps<NecessaryTodoState & IRouteChildrenProps, IRouteChildrenProps, IRootState> = (rootState, ownProps) => {
     const { todo } = rootState;
-    return { todoList: todo.todoList, addtodoListLoading: todo.listLoading, addLoading: todo.addLoading, ...ownProps };
+    return { todoList: todo.todoList, listLoading: todo.listLoading, addLoading: todo.addLoading, ...ownProps };
 };
 // method 1:
 // const mapDispatchToProps: MapDispatchToProps<{ addItem: (todo: TodoItemType) => void }, {}> = (dispatch, ownProps) => ({
